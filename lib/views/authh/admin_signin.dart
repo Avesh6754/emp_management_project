@@ -24,7 +24,7 @@ class AdminSignin extends StatelessWidget {
                   textStyle: TextStyle(fontSize: 25, color: Colors.black),
                 ),
               ),
-              Image.asset('assets/image/signIn.png'),
+              Image.asset('assets/image/4705027-removebg-preview.png'),
               authtxtContainer(hint: 'Email',isIcon: false,icon:Icons.add),
               authtxtContainer(hint: 'Password',isIcon: false,icon:Icons.add),
               Padding(

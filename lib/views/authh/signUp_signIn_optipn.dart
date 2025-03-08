@@ -23,7 +23,7 @@ class OptionPage extends StatelessWidget {
                 color: Colors.white,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/image/SpectrumLog.png'),
+                  image: AssetImage('assets/image/logoimage.png'),
                 ),
               ),
             ),

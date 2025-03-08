@@ -16,7 +16,7 @@ class SelectEmployeeAndSupervisor extends StatelessWidget {
             decoration: BoxDecoration(
               color: Color(0xffF5F9EF),
               image: DecorationImage(
-                image: AssetImage('assets/image/image_page3.png'),
+                image: AssetImage('assets/image/4356046-removebg-preview.png'),
               ),
             ),
           ),
@@ -48,7 +48,7 @@ class SelectEmployeeAndSupervisor extends StatelessWidget {
           ),
           Expanded(
             child: Image(
-              image: AssetImage("assets/image/logo.png"),
+              image: AssetImage("assets/image/logoimage.png"),
             ),
           )
         ],
