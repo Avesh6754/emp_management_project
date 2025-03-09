@@ -3,6 +3,7 @@ import 'package:emp_management/views/component/location_udf.dart';
 import 'package:flutter/material.dart';
 
 import '../views/admin/attendance/attendance_page.dart';
+import '../views/admin/calander/calander.dart';
 import '../views/admin/drawer_page.dart';
 import '../views/admin/early leavers/eraly_leavers.dart';
 import '../views/admin/employyeList/employee.dart';
@@ -33,4 +34,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   '/lateComers':(context)=> LateComersScreen(),
   '/earlyLeave':(context)=> EarlyLeaversScreen(),
   '/employeeList':(context)=> EmployeeListScreen(),
+  '/calander':(context)=> AttendanceLogScreen(),
 };

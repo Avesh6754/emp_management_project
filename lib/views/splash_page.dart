@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 var time = 0;
 
@@ -44,10 +45,10 @@ class _SplashPageState extends State<SplashPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 200, left: 50),
+            padding:  EdgeInsets.only(top: 200.h, left: 50.w),
             child: Container(
-              height: 450,
-              width: 450,
+              height: 450.h,
+              width: 450.w,
               decoration: BoxDecoration(
                 // color: Colors.white,
                 image: DecorationImage(
@@ -58,14 +59,14 @@ class _SplashPageState extends State<SplashPage> {
             ),
           ),
           SizedBox(
-            height: 150,
+            height: 150.h,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30),
+            padding:  EdgeInsets.only(left: 30.w, right: 30.w),
             child: LinearProgressIndicator(
               value: time / 1.5,
               color: Colors.green,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
           ),
         ],

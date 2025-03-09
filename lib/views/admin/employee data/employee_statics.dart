@@ -1,5 +1,7 @@
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class EmployeeStatisticsScreen extends StatelessWidget {
@@ -17,64 +19,71 @@ class EmployeeStatisticsScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(120),
+          preferredSize: Size.fromHeight(120.h),
           child: Column(
-            spacing: 5,
+            spacing: 5.h,
             children: [
               Container(
-                height: 75,
-                width: 75,
+                height: 75.h,
+                width: 75.w,
                 decoration: BoxDecoration(
                   color: Color(0xff5C8956),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.person_outline_rounded,
-                  size: 40,
+                  size: 40.sp,
                   color: Colors.white,
                 ),
               ),
               Text(
                 "Employee ID : 123456",
-                style: TextStyle(
-                  color: Colors.white,
-                  letterSpacing: 0.5,
-                  fontSize: 18,
+                style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      color: Colors.white,
+                      letterSpacing: 0.5.sp,
+                      fontSize: 18.sp),
                 ),
               ),
               Text(
                 "Faius Mojumder Nahin",
-                style: TextStyle(
+                style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
-                  letterSpacing: 0.5,
-                  fontSize: 20,
-                ),
+                  letterSpacing: 0.5.sp,
+                  fontSize: 20.sp,
+                )),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 5.h),
             ],
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Personal Statistics",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500,color: Colors.grey.shade800,
-                letterSpacing: .5,),
+              style: GoogleFonts.roboto(
+                textStyle: TextStyle(
+                    fontSize: 22.sp,
+                    letterSpacing: 0.5.sp,
+                    color: Colors.grey.shade800),
+              ),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 DropdownButton<String>(
-                  style: TextStyle(
-                      color: Colors.grey.shade700,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400),
+                  style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w400)),
                   value: "Last 14 days",
                   items: [
                     "Last 7 days",
@@ -94,12 +103,14 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                 ),
                 IconButton(
                   ///todo : logic :-)
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/calander');
+                  },
                   icon: Icon(Icons.calendar_today),
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -108,32 +119,36 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                 buildCircularIndicator("Leaves", 0.05, Colors.green),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Text(
               "Leave Requests",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey.shade800,
-                letterSpacing: .5,
-              ),
+              style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey.shade800,
+                      letterSpacing: 0.5.sp)),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             DropdownButtonFormField(
               icon: Icon(
                 Icons.keyboard_arrow_down_outlined,
-                size: 30,
+                size: 30.sp,
               ),
               decoration: InputDecoration(border: OutlineInputBorder()),
               hint: Text(
                 "Tap to view leave requests",
-                style: TextStyle(
-                    color: Colors.grey, fontSize: 20, letterSpacing: .5),
+                style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 20.sp,
+                      letterSpacing: 0.5.sp),
+                ),
               ),
               items: [],
               onChanged: (value) {},
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 16.h),
             buildInfoTile("Total Presents", "12 days"),
             buildInfoTile("Late", "2 days"),
             buildInfoTile("Early Leaves", "2 days"),
@@ -149,26 +164,26 @@ class EmployeeStatisticsScreen extends StatelessWidget {
     return Column(
       children: [
         CircularPercentIndicator(
-          radius: 45.0,
-          lineWidth: 8.0,
+          radius: 45.0.r,
+          lineWidth: 8.0.w,
           backgroundColor: Colors.grey.shade300,
           percent: percent,
           center: Text(
             "${(percent * 100).toInt()}%",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: GoogleFonts.roboto(
+                textStyle:
+                    TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
           ),
           progressColor: color,
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 20.h),
         Text(
           label,
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: Colors.grey.shade600),
+          style: GoogleFonts.roboto(
+              textStyle: TextStyle(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey.shade600)),
         ),
       ],
     );
@@ -176,31 +191,32 @@ class EmployeeStatisticsScreen extends StatelessWidget {
 
   Widget buildInfoTile(String title, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: EdgeInsets.symmetric(vertical: 4.0.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey.shade800,
-              letterSpacing: .5,
-            ),
+            style: GoogleFonts.roboto(
+                textStyle: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey.shade800,
+                    letterSpacing: 0.5.sp)),
           ),
           Container(
             alignment: Alignment.center,
-            width: 100,
+            width: 100.w,
             decoration:
                 BoxDecoration(border: Border.all(color: Colors.grey.shade600)),
             child: Text(
               value,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.grey,
-                letterSpacing: .2,
-              ),
+              style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      fontSize: 20.sp,
+                      color: Colors.grey,
+                      letterSpacing: 0.2.sp)),
+
             ),
           ),
         ],

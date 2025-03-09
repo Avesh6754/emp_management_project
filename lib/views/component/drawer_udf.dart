@@ -1,5 +1,7 @@
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SideMenu extends StatelessWidget {
   @override
@@ -10,25 +12,30 @@ class SideMenu extends StatelessWidget {
           Container(
             width: double.infinity,
             color: greenColor,
-            padding: EdgeInsets.only(top: 40, bottom: 20),
+            padding: EdgeInsets.only(top: 40.h, bottom: 20.h),
             child: Column(
               children: [
                 CircleAvatar(
-                  radius: 40,
+                  radius: 40.r,
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.person, size: 40, color: Colors.green),
+                  child: Icon(Icons.person, size: 40.sp, color: Colors.green),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: 30,),
-                    Text("Hi! Kabir", style: TextStyle(color: Colors.white, fontSize: 18)),
-                    IconButton(onPressed: () {
-                      Navigator.of(context).pushNamed('/edit');
-                    }, icon: Icon(Icons.edit,color: Colors.white,)),
+                    SizedBox(width: 30.w),
+                    Text("Hi! Kabir",
+                        style: TextStyle(color: Colors.white, fontSize: 18.sp)),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/edit');
+                        },
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        )),
                   ],
                 ),
-
               ],
             ),
           ),
@@ -40,7 +47,6 @@ class SideMenu extends StatelessWidget {
           _buildDrawerItem(Icons.list, "Leaves"),
           _buildDrawerItem(Icons.lock, "Change Password"),
           _buildDrawerItem(Icons.logout, "Log out"),
-
         ],
       ),
     );
@@ -49,7 +55,10 @@ class SideMenu extends StatelessWidget {
   Widget _buildDrawerItem(IconData icon, String title) {
     return ListTile(
       leading: Icon(icon, color: Colors.black54),
-      title: Text(title, style: TextStyle(color: Colors.black54)),
+      title: Text(
+        title,
+        style: GoogleFonts.roboto(textStyle: TextStyle(color: Colors.black54)),
+      ),
       onTap: () {},
     );
   }

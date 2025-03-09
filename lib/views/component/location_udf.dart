@@ -1,6 +1,8 @@
 import 'package:emp_management/views/component/app_bar_udf.dart';
 import 'package:emp_management/views/component/static_date_time.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'drawer_udf.dart';
 
@@ -11,65 +13,69 @@ class OfficeLocationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarMethod(),
-      drawer:SideMenu(),
+      drawer: SideMenu(),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             StaticDateTime(),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.warning, color: Colors.amber),
-                SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 Text(
                   "Status: ",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.bold)),
                 ),
                 Text(
                   "You are not in office range",
-                  style: TextStyle(fontSize: 16, color: Colors.red),
+                  style: GoogleFonts.roboto(
+                      textStyle: TextStyle(fontSize: 16.sp, color: Colors.red)),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Container(
-              height: 200,
+              height: 200.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 color: Colors.grey[300],
               ),
               alignment: Alignment.center,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Do you want to change your location?",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 16.sp, fontWeight: FontWeight.w600)),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
                         ),
                         onPressed: () {
-
                           Navigator.of(context).pushReplacementNamed('/check');
                         },
                         child: const Text("Yes"),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
                         ),
                         onPressed: () {},
                         child: const Text("No"),
@@ -79,28 +85,35 @@ class OfficeLocationScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            const Row(
+            SizedBox(height: 20.h),
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(Icons.location_on, color: Colors.black),
-                SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 Expanded(
                   child: Text(
                     "Your Location: Block C, 24/A Tajmahal Road (Ring Road, Near Shia Mosque, Dhaka 1207",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    style: GoogleFonts.roboto(
+                        fontSize: 16.sp, fontWeight: FontWeight.w500),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            const Text(
+            SizedBox(height: 20.h),
+            Text(
               "Note: Please go inside Office range then ",
-              style: TextStyle(fontSize: 16),
+              style: GoogleFonts.roboto(
+                textStyle: TextStyle(fontSize: 16.sp),
+              ),
             ),
-            const Text(
+            Text(
               "try again!",
-              style: TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+              style: GoogleFonts.roboto(
+                  fontSize: 16.sp,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold),
+
             ),
           ],
         ),

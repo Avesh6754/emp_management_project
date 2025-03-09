@@ -1,6 +1,7 @@
 import 'package:emp_management/component/common_compo.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../component/textfiled_compo.dart';
 
@@ -14,16 +15,16 @@ class SignupPage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 180,
+              height: 180.h,
             ),
             Text(
               "Sign Up for Better Experience",
               style: GoogleFonts.roboto(
-                textStyle: TextStyle(fontSize: 25, color: Colors.black),
+                textStyle: TextStyle(fontSize: 25.sp, color: Colors.black),
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 5.h,
             ),
             authtxtContainer(
                 isIcon: true, hint: 'Employee Name', icon: Icons.person),
@@ -31,7 +32,7 @@ class SignupPage extends StatelessWidget {
             authtxtContainer(
                 isIcon: true, hint: 'password', icon: Icons.lock_rounded),
             SizedBox(
-              height: 25,
+              height: 25.h,
             ),
             commonButton(
                 name: 'Sign Up',
@@ -39,7 +40,7 @@ class SignupPage extends StatelessWidget {
                 txtColor: whiteColor,
                 boarderColor: greenColor),
             Padding(
-              padding: const EdgeInsets.only(top: 8, right: 130),
+              padding:  EdgeInsets.only(top: 8.h, right: 130.w),
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushNamed('/signIn');
@@ -49,13 +50,13 @@ class SignupPage extends StatelessWidget {
                       text: "Already have an account?",
                       style: GoogleFonts.roboto(
                         color: Colors.black,
-                        fontSize: 15,
+                        fontSize: 15.sp,
                       ),
                       children: [
                         TextSpan(
                             text: ' Sign In',
                             style: GoogleFonts.roboto(
-                                color: greenColor, fontSize: 15))
+                                color: greenColor, fontSize: 15.sp))
                       ]),
                 ),
               ),
@@ -63,17 +64,17 @@ class SignupPage extends StatelessWidget {
             // TODO for create account with google..........................0.
             //TODO yaha pe digloue box banana baki he.............................
             Padding(
-              padding: const EdgeInsets.only(right: 28, left: 28, top: 20),
+              padding:  EdgeInsets.only(right: 28.w, left: 28.w, top: 20.h),
               child: GestureDetector(
                 onTap: () {
 
                 },
                 child: Container(
-                  height: 60,
+                  height: 60.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                       border: Border.all(color: greyColor),
                       image: DecorationImage(
                           image: AssetImage(

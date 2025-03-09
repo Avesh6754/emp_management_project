@@ -1,6 +1,7 @@
 import 'package:emp_management/utils/global.dart';
 import 'package:emp_management/views/admin/employee%20data/employee_statics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../component/admin_drawer.dart';
@@ -34,7 +35,7 @@ class EmployeeListScreen extends StatelessWidget {
             textStyle: TextStyle(
               fontWeight: FontWeight.w400,
               color: Colors.white,
-              fontSize: 24,
+              fontSize: 24.sp,
             ),
           ),
         ),
@@ -43,13 +44,13 @@ class EmployeeListScreen extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0.r),
             child: RichText(
               text: TextSpan(
                 text: 'Total Employees:',
                 style: GoogleFonts.roboto(
                   textStyle: TextStyle(
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w400,
                     color: Colors.black54,
                   ),
@@ -59,7 +60,7 @@ class EmployeeListScreen extends StatelessWidget {
                     text: ' 25  ',
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w400,
                         color: Color(0xff73AB6B),
                       ),
@@ -72,7 +73,7 @@ class EmployeeListScreen extends StatelessWidget {
           ),
           Divider(color: Colors.black38),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal:20),
+            padding: EdgeInsets.symmetric(horizontal:20.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -80,19 +81,19 @@ class EmployeeListScreen extends StatelessWidget {
                   "Name",
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 30),
+                  padding:  EdgeInsets.only(right: 30.w),
                   child: Text(
                     "Preview",
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
                       ),
@@ -112,13 +113,14 @@ class EmployeeListScreen extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmployeeStatisticsScreen(),));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10,right:40),
+                    padding:  EdgeInsets.only(left: 10.w,right:40.w
+                    ),
                     child: ListTile(
                       title: Text(
                         employees[index],
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                           ),

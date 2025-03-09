@@ -1,6 +1,7 @@
 import 'package:emp_management/component/common_compo.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../component/textfiled_compo.dart';
@@ -16,23 +17,23 @@ class SigninPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 150,
+                height: 150.h,
               ),
               Text(
                 "Welcome Back!",
                 style: GoogleFonts.roboto(
-                  textStyle: TextStyle(fontSize: 25, color: Colors.black),
+                  textStyle: TextStyle(fontSize: 25.sp, color: Colors.black),
                 ),
               ),
               Image.asset('assets/image/4705027-removebg-preview.png'),
               authtxtContainer(hint: 'Email',isIcon: false,icon:Icons.add),
               authtxtContainer(hint: 'Password',isIcon: false,icon:Icons.add),
               Padding(
-                padding: const EdgeInsets.only(right: 220, top: 5),
+                padding:  EdgeInsets.only(right: 220.w, top: 5.h),
                 child: Text(
                   'Forgot Password ?',
                   style: GoogleFonts.roboto(
-                    textStyle: TextStyle(fontSize: 15, color: Colors.green),
+                    textStyle: TextStyle(fontSize: 15.sp, color: Colors.green),
                   ),
                 ),
               ),
@@ -41,7 +42,7 @@ class SigninPage extends StatelessWidget {
                   Navigator.of(context).pushReplacementNamed('/home');
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0.r),
                   child: commonButton(
                       name: 'Sign In',
                       color: greenColor,
@@ -52,7 +53,7 @@ class SigninPage extends StatelessWidget {
 
               // TODO    if don't have an account then navigate sign up page..........
               Padding(
-                padding: const EdgeInsets.only(top: 2,right: 130),
+                padding:  EdgeInsets.only(top: 2.h,right: 130.w),
                 child: GestureDetector(
                   onTap: () {
                  Navigator.of(context).pushNamed('/signUp');
@@ -62,12 +63,12 @@ class SigninPage extends StatelessWidget {
                       text: "Don't have an account?",
                       style: GoogleFonts.roboto(
                         color: Colors.black,
-                        fontSize: 15,
+                        fontSize: 15.sp,
                       ),
                       children: [
                         TextSpan(
                           text: ' Sign Up',
-                          style: GoogleFonts.roboto(color: greenColor,fontSize: 15)
+                          style: GoogleFonts.roboto(color: greenColor,fontSize: 15.sp)
                         )
                       ]
                     ),

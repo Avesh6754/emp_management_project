@@ -1,5 +1,6 @@
 import 'package:emp_management/views/admin/component/admin_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -39,7 +40,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
             textStyle: TextStyle(
               fontWeight: FontWeight.w400,
               color: Colors.white,
-              fontSize: 24,
+              fontSize: 24.sp,
             ),
           ),
         ),
@@ -48,7 +49,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0.r),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -59,7 +60,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
                     side: BorderSide(color: Colors.black26),
 
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Row(
@@ -69,7 +70,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
                         DateFormat("dd-MMM-yyyy").format(selectedDate),
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w300,
                             color: Colors.black54,
                           ),
@@ -77,10 +78,10 @@ class _LateComersScreenState extends State<LateComersScreen> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(left: 5),
+                        padding:  EdgeInsets.only(left: 5.w),
                         child: Icon(
                           Icons.keyboard_arrow_down,
-                          size: 20,
+                          size: 20.sp,
                           color: Colors.black54,
                         ),
                       ),
@@ -89,13 +90,13 @@ class _LateComersScreenState extends State<LateComersScreen> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0.r),
                   child: RichText(
                     text: TextSpan(
                       text: 'Total Employees:',
                       style: GoogleFonts.roboto(
                         textStyle: TextStyle(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.black54,
                         ),
@@ -105,7 +106,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
                           text: ' 3  ',
                           style: GoogleFonts.roboto(
                             textStyle: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.w400,
                               color: Color(0xff73AB6B),
                             ),
@@ -119,7 +120,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 30),
+            padding:  EdgeInsets.only(right: 30.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -127,18 +128,18 @@ class _LateComersScreenState extends State<LateComersScreen> {
                   "CSV",
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w400,
                       color: Color(0xff4053FF),
                     ),
                   ),
                 ),
-                SizedBox(width: 15),
+                SizedBox(width: 15.w),
                 Text(
                   "PDF",
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w400,
                       color: Color(0xff4053FF),
                     ),
@@ -149,36 +150,36 @@ class _LateComersScreenState extends State<LateComersScreen> {
           ),
           Divider(color: Colors.black),
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding:  EdgeInsets.only(left: 15.w,right: 15.w),
             child: Row(
               children: [
                 Text(
                   'Name',
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                   ),
                 ),
-                SizedBox(width: 190),
+                Spacer(),
                 Text(
                   'Time In',
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                   ),
                 ),
-                SizedBox(width: 15),
+                  SizedBox(width: 15.w,),
                 Text(
                   'Late By',
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
@@ -198,7 +199,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
                     emp['name'],
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
                       ),
@@ -208,14 +209,14 @@ class _LateComersScreenState extends State<LateComersScreen> {
                     "UI/UX Designer",
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black38,
                       ),
                     ),
                   ),
                   trailing: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.all(8.0.r),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -224,19 +225,22 @@ class _LateComersScreenState extends State<LateComersScreen> {
                           emp['timeIn'],
                           style: GoogleFonts.roboto(
                             textStyle: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),
-                        SizedBox(width: 15),
-                        Text(
-                          emp['lateBy'],
-                          style: GoogleFonts.roboto(
-                            fontSize: 16,
-                            color: Colors.red,
-                            fontWeight: FontWeight.w400,
+                        SizedBox(width: 15.w),
+                        SizedBox(
+                          width: 45.w,
+                          child: Text(
+                            emp['lateBy'],
+                            style: GoogleFonts.roboto(
+                              fontSize: 16.sp,
+                              color: Colors.red,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ],

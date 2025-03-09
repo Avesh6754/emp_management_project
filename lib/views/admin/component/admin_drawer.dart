@@ -1,6 +1,7 @@
 import 'package:emp_management/utils/global.dart';
 import 'package:emp_management/views/admin/drawer_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../attendance/attendance_page.dart';
@@ -15,15 +16,15 @@ Drawer admin_Drawer_Method(BuildContext context) {
     child: Column(
       children: [
         Container(
-          height: 200,
+          height: 200.h,
           width: double.infinity,
           color:greenColor,
-          padding: EdgeInsets.symmetric(vertical: 40),
+          padding: EdgeInsets.symmetric(vertical: 40.h),
           child: Column(
             children: [
               Container(
-                height: 79,
-                width: 79,
+                height: 79.h,
+                width: 79.w,
                 decoration: BoxDecoration(
                   color:  Color(0xff5C8956),
                   shape: BoxShape.circle,
@@ -33,15 +34,15 @@ Drawer admin_Drawer_Method(BuildContext context) {
                 ),
                 child: IconButton(onPressed: () {
 
-                }, icon: Icon(Icons.person_outline_outlined,color: whiteColor,size: 50,)),
+                }, icon: Icon(Icons.person_outline_outlined,color: whiteColor,size: 50.sp,)),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Text(
                 "Hello! MD. Sharafat",
                 style: GoogleFonts.roboto(
                   textStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 21,
+                    fontSize: 21.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
