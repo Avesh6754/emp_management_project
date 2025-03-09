@@ -49,8 +49,8 @@ class CheckInOutScreen extends StatelessWidget {
   Widget buildButton(
       IconData icon, String text, Color bgColor, Color iconColor) {
     return Container(
-      height: 150.h,
-      width: 150.w,
+      height: 130.h,
+      width: 130.w,
       decoration: BoxDecoration(
           color: bgColor, borderRadius: BorderRadius.circular(10.r)),
       alignment: Alignment.center,

@@ -70,7 +70,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
                         DateFormat("dd-MMM-yyyy").format(selectedDate),
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                            fontSize: 18.sp,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w300,
                             color: Colors.black54,
                           ),
@@ -233,7 +233,7 @@ class _LateComersScreenState extends State<LateComersScreen> {
                         ),
                         SizedBox(width: 15.w),
                         SizedBox(
-                          width: 45.w,
+                          width: 55.w,
                           child: Text(
                             emp['lateBy'],
                             style: GoogleFonts.roboto(

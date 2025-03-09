@@ -19,7 +19,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(120.h),
+          preferredSize: Size.fromHeight(130.h),
           child: Column(
             spacing: 5.h,
             children: [
@@ -69,7 +69,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
               "Personal Statistics",
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(
-                    fontSize: 22.sp,
+                    fontSize: 20.sp,
                     letterSpacing: 0.5.sp,
                     color: Colors.grey.shade800),
               ),
@@ -82,7 +82,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                   style: GoogleFonts.roboto(
                       textStyle: TextStyle(
                           color: Colors.grey.shade700,
-                          fontSize: 20.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w400)),
                   value: "Last 14 days",
                   items: [
@@ -110,7 +110,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 14.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -124,7 +124,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
               "Leave Requests",
               style: GoogleFonts.roboto(
                   textStyle: TextStyle(
-                      fontSize: 20.sp,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade800,
                       letterSpacing: 0.5.sp)),
@@ -141,7 +141,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                 style: GoogleFonts.roboto(
                   textStyle: TextStyle(
                       color: Colors.grey,
-                      fontSize: 20.sp,
+                      fontSize: 18.sp,
                       letterSpacing: 0.5.sp),
                 ),
               ),
@@ -164,7 +164,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
     return Column(
       children: [
         CircularPercentIndicator(
-          radius: 45.0.r,
+          radius: 40.0.r,
           lineWidth: 8.0.w,
           backgroundColor: Colors.grey.shade300,
           percent: percent,
@@ -172,16 +172,16 @@ class EmployeeStatisticsScreen extends StatelessWidget {
             "${(percent * 100).toInt()}%",
             style: GoogleFonts.roboto(
                 textStyle:
-                    TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
+                    TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold)),
           ),
           progressColor: color,
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 10.h),
         Text(
           label,
           style: GoogleFonts.roboto(
               textStyle: TextStyle(
-                  fontSize: 20.sp,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.grey.shade600)),
         ),
@@ -199,7 +199,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
             title,
             style: GoogleFonts.roboto(
                 textStyle: TextStyle(
-                    fontSize: 20.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
                     color: Colors.grey.shade800,
                     letterSpacing: 0.5.sp)),
@@ -213,7 +213,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
               value,
               style: GoogleFonts.roboto(
                   textStyle: TextStyle(
-                      fontSize: 20.sp,
+                      fontSize: 18.sp,
                       color: Colors.grey,
                       letterSpacing: 0.2.sp)),
 

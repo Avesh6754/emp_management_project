@@ -60,6 +60,7 @@ class _AttendanceLogScreenState extends State<AttendanceLogScreen> {
             ),
           ),
           Divider(color: Colors.black,),
+
           Expanded(
             child: TableCalendar(
               firstDay: DateTime.utc(2022, 1, 1),
