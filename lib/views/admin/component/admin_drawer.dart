@@ -57,7 +57,7 @@ Drawer admin_Drawer_Method(BuildContext context) {
               buildDrawerItem(context, 'assets/image/late_comes.png', "Late Comers", LateComersScreen()),
               buildDrawerItem(context, 'assets/image/Book_open.png', "Early Leavers", EarlyLeaversScreen()),
               buildDrawerItem(context, 'assets/image/leaves.png', "Leaves", EarlyLeaversScreen()),//TODO change page
-              buildDrawerItem(context, 'assets/image/issue report.png', "DashBoard", HomeScreen()),//TODO change page
+              buildDrawerItem(context, 'assets/image/issue report.png', "Request Section", HomeScreen()),//TODO change page
               buildDrawerItem(context, 'assets/image/incident.png', "Incident Report", EarlyLeaversScreen()),//TODO change page
               buildDrawerItem(context, 'assets/image/employye.png', "Employee List", EmployeeListScreen()),
               buildDrawerItem(context, 'assets/image/logout.png', "Log out", EarlyLeaversScreen()),//TODO change page

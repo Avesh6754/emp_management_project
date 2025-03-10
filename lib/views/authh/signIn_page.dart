@@ -25,11 +25,23 @@ class SigninPage extends StatelessWidget {
                   textStyle: TextStyle(fontSize: 25.sp, color: Colors.black),
                 ),
               ),
+
+              /// todo deep add controller
               Image.asset('assets/image/4705027-removebg-preview.png'),
-              authtxtContainer(hint: 'Email',isIcon: false,icon:Icons.add),
-              authtxtContainer(hint: 'Password',isIcon: false,icon:Icons.add),
+              authtxtContainer(
+                hint: 'Email',
+                isIcon: false,
+                icon: Icons.add,
+                txtController: TextEditingController(),
+              ),
+              authtxtContainer(
+                hint: 'Password',
+                isIcon: false,
+                icon: Icons.add,
+                txtController: TextEditingController(),
+              ),
               Padding(
-                padding:  EdgeInsets.only(right: 220.w, top: 5.h),
+                padding: EdgeInsets.only(right: 220.w, top: 5.h),
                 child: Text(
                   'Forgot Password ?',
                   style: GoogleFonts.roboto(
@@ -42,7 +54,7 @@ class SigninPage extends StatelessWidget {
                   Navigator.of(context).pushReplacementNamed('/home');
                 },
                 child: Padding(
-                  padding:  EdgeInsets.all(8.0.r),
+                  padding: EdgeInsets.all(8.0.r),
                   child: commonButton(
                       name: 'Sign In',
                       color: greenColor,
@@ -53,26 +65,24 @@ class SigninPage extends StatelessWidget {
 
               // TODO    if don't have an account then navigate sign up page..........
               Padding(
-                padding:  EdgeInsets.only(top: 2.h,right: 130.w),
+                padding: EdgeInsets.only(top: 2.h, right: 130.w),
                 child: GestureDetector(
                   onTap: () {
-                 Navigator.of(context).pushNamed('/signUp');
+                    Navigator.of(context).pushNamed('/signUp');
                   },
                   child: RichText(
                     text: TextSpan(
-                      text: "Don't have an account?",
-                      style: GoogleFonts.roboto(
-                        color: Colors.black,
-                        fontSize: 15.sp,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: ' Sign Up',
-                          style: GoogleFonts.roboto(color: greenColor,fontSize: 15.sp)
-                        )
-                      ]
-                    ),
-
+                        text: "Don't have an account?",
+                        style: GoogleFonts.roboto(
+                          color: Colors.black,
+                          fontSize: 15.sp,
+                        ),
+                        children: [
+                          TextSpan(
+                              text: ' Sign Up',
+                              style: GoogleFonts.roboto(
+                                  color: greenColor, fontSize: 15.sp))
+                        ]),
                   ),
                 ),
               ),

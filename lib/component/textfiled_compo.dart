@@ -7,11 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utils/global.dart';
 
 Padding authtxtContainer(
-    {required String hint, required IconData icon, required bool isIcon}) {
+    {required String hint,
+    required IconData icon,
+    required bool isIcon,
+    required txtController}) {
   return Padding(
     padding: EdgeInsets.only(top: 30.h, left: 28.w, right: 28.w),
     child: TextField(
-      // controller: ,
+      controller: txtController,
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: (isIcon)

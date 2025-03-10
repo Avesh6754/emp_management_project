@@ -1,3 +1,11 @@
-import '';
+import 'package:flutter/material.dart';
 
-class AuthController  {}
+import '../modal/employee_request.dart';
+
+class AuthController extends ChangeNotifier {
+  var txtName = TextEditingController();
+  var txtEmail = TextEditingController();
+  var txtPassword = TextEditingController();
+
+  List<EmployeeRequest> employeeRequestList =[];
+}
