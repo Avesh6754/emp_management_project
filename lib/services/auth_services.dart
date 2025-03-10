@@ -23,9 +23,9 @@ class AuthServices {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
-      return "error";
+      return e.toString();
     }
-    return "create";
+    return "signIn";
   }
 
   User? currentUser() {

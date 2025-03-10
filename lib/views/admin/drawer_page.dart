@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emp_management/controller/auth_controller.dart';
+import 'package:emp_management/modal/attendence_model.dart';
 import 'package:emp_management/modal/employee_request.dart';
 import 'package:emp_management/services/add_fire_stor_employee_request.dart';
+import 'package:emp_management/services/add_fire_store_attendwnce.dart';
 import 'package:emp_management/services/auth_services.dart';
 import 'package:emp_management/views/component/app_bar_udf.dart';
 import 'package:emp_management/views/component/static_date_time.dart';
@@ -97,183 +99,201 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Divider(color: Colors.black26),
           StreamBuilder(
-              stream: AddFireStoreEmployeeRequest.addFireStoreRequest
-                  .fetchEmployeeRequestData(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  List<QueryDocumentSnapshot<Map<String, dynamic>>> data =
-                      snapshot.data!.docs;
-                  providerTrue.employeeRequestList = data
-                      .map(
-                        (e) => EmployeeRequest.fromMap(e.data()),
-                      )
-                      .toList();
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: providerTrue.employeeRequestList.length,
-                      itemBuilder: (context, index) {
-                        // final emp = providerTrue.employeeRequestList[index];
-                        return Card(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0.r),
-                            child: GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text('Employee request'),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          TextField(
-                                            controller: TextEditingController(
-                                                text: providerTrue
-                                                    .employeeRequestList[index]
-                                                    .name!),
-                                            enabled: false,
-                                          ),
-                                          TextField(
-                                            controller: TextEditingController(
-                                                text: providerTrue
-                                                    .employeeRequestList[index]
-                                                    .email!),
-                                            enabled: false,
-                                          ),
-                                          TextField(
-                                            controller: TextEditingController(
-                                                text: providerTrue
-                                                    .employeeRequestList[index]
-                                                    .status!),
-                                            enabled: false,
-                                          ),
-                                        ],
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () async {
-                                            await AuthServices.authServices
-                                                .createAccount(
-                                              email: providerTrue
+            stream: AddFireStoreEmployeeRequest.addFireStoreRequest
+                .fetchEmployeeRequestData(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                List<QueryDocumentSnapshot<Map<String, dynamic>>> data =
+                    snapshot.data!.docs;
+                providerTrue.employeeRequestList = data
+                    .map(
+                      (e) => EmployeeRequest.fromMap(e.data()),
+                    )
+                    .toList();
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: providerTrue.employeeRequestList.length,
+                    itemBuilder: (context, index) {
+                      // final emp = providerTrue.employeeRequestList[index];
+                      return Card(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.all(4.0.r),
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Employee request'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextField(
+                                          controller: TextEditingController(
+                                              text: providerTrue
                                                   .employeeRequestList[index]
-                                                  .email!,
-                                              password: providerTrue
-                                                  .employeeRequestList[index]
-                                                  .password!,
-                                            );
-
-                                            await AddFireStoreEmployeeRequest
-                                                .addFireStoreRequest
-                                                .update(
-                                              email: providerTrue
-                                                  .employeeRequestList[index]
-                                                  .email!,
-                                            );
-
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(
-                                            'Approve',
-                                            style: GoogleFonts.roboto(
-                                              textStyle: TextStyle(
-                                                color: Colors.green,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            ),
-                                          ),
+                                                  .name!),
+                                          enabled: false,
                                         ),
-                                        TextButton(
-                                          onPressed: () async {
-                                            await AddFireStoreEmployeeRequest
-                                                .addFireStoreRequest
-                                                .deleteData(
-                                              email: providerTrue
+                                        TextField(
+                                          controller: TextEditingController(
+                                              text: providerTrue
                                                   .employeeRequestList[index]
-                                                  .email!,
-                                            );
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(
-                                            'Reject',
-                                            style: GoogleFonts.roboto(
-                                              textStyle: TextStyle(
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            ),
-                                          ),
-                                        )
+                                                  .email!),
+                                          enabled: false,
+                                        ),
+                                        TextField(
+                                          controller: TextEditingController(
+                                              text: providerTrue
+                                                  .employeeRequestList[index]
+                                                  .status!),
+                                          enabled: false,
+                                        ),
                                       ],
-                                    );
-                                  },
-                                );
-                              },
-                              child: ListTile(
-                                title: Text(
-                                  providerTrue.employeeRequestList[index].name!,
-                                  style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
                                     ),
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  providerTrue
-                                      .employeeRequestList[index].email!,
-                                  style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
-                                      fontSize: 16.sp,
-                                      color: Colors.grey.shade500,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                                trailing: Padding(
-                                  padding: EdgeInsets.all(8.0.r),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      SizedBox(
-                                        width: 70.w,
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () async {
+                                          await AuthServices.authServices
+                                              .createAccount(
+                                            email: providerTrue
+                                                .employeeRequestList[index]
+                                                .email!,
+                                            password: providerTrue
+                                                .employeeRequestList[index]
+                                                .password!,
+                                          );
+
+                                          await AddFireStoreEmployeeRequest
+                                              .addFireStoreRequest
+                                              .update(
+                                            email: providerTrue
+                                                .employeeRequestList[index]
+                                                .email!,
+                                          );
+
+                                          AttendanceModel employee =
+                                              AttendanceModel(
+                                            email: providerTrue
+                                                .employeeRequestList[index]
+                                                .email,
+                                            status: "Enter your status...",
+                                            name: providerTrue
+                                                .employeeRequestList[index]
+                                                .name,
+                                            checkIn: "add",
+                                            checkOut: "out",
+                                            lat: 1.1,
+                                            long: 1.2,
+                                          );
+
+                                          await AddFireStoreAttendance
+                                              .addAttendance
+                                              .addEmployeeRequest(employee);
+
+                                          Navigator.of(context).pop();
+                                        },
                                         child: Text(
-                                          providerTrue
-                                              .employeeRequestList[index]
-                                              .status!,
+                                          'Approve',
                                           style: GoogleFonts.roboto(
-                                            color: providerTrue
-                                                        .employeeRequestList[
-                                                            index]
-                                                        .status ==
-                                                    "Approved"
-                                                ? Colors.green
-                                                : Colors.red,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.w600,
+                                            textStyle: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
                                           ),
                                         ),
                                       ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          await AddFireStoreEmployeeRequest
+                                              .addFireStoreRequest
+                                              .deleteData(
+                                            email: providerTrue
+                                                .employeeRequestList[index]
+                                                .email!,
+                                          );
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text(
+                                          'Reject',
+                                          style: GoogleFonts.roboto(
+                                            textStyle: TextStyle(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ),
+                                      )
                                     ],
+                                  );
+                                },
+                              );
+                            },
+                            child: ListTile(
+                              title: Text(
+                                providerTrue.employeeRequestList[index].name!,
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
                                   ),
+                                ),
+                              ),
+                              subtitle: Text(
+                                providerTrue.employeeRequestList[index].email!,
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.grey.shade500,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                              trailing: Padding(
+                                padding: EdgeInsets.all(8.0.r),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    SizedBox(
+                                      width: 70.w,
+                                      child: Text(
+                                        providerTrue
+                                            .employeeRequestList[index].status!,
+                                        style: GoogleFonts.roboto(
+                                          color: providerTrue
+                                                      .employeeRequestList[
+                                                          index]
+                                                      .status ==
+                                                  "Approved"
+                                              ? Colors.green
+                                              : Colors.red,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Icon(Icons.error_outline);
-                } else {
-                  return CircularProgressIndicator();
-                }
-              })
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Icon(Icons.error_outline);
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          )
         ],
       ),
     );

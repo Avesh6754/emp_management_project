@@ -17,10 +17,16 @@ class CheckInOutScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         spacing: 30.sp,
         children: [
-          Text('Hi Kabir Ahmed!',
-              style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                      fontSize: 28.sp, fontWeight: FontWeight.w400, height: 2.h))),
+          Text(
+            'Hi Kabir Ahmed!',
+            style: GoogleFonts.roboto(
+              textStyle: TextStyle(
+                fontSize: 28.sp,
+                fontWeight: FontWeight.w400,
+                height: 2.h,
+              ),
+            ),
+          ),
           StaticDateTime(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -59,12 +65,16 @@ class CheckInOutScreen extends StatelessWidget {
         children: [
           Icon(icon, color: iconColor, size: 50.sp),
           SizedBox(height: 5.h),
-          Text(text,
-              style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w700,
-                      color: whiteColor))),
+          Text(
+            text,
+            style: GoogleFonts.roboto(
+              textStyle: TextStyle(
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w700,
+                color: whiteColor,
+              ),
+            ),
+          ),
         ],
       ),
     );
