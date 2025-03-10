@@ -6,13 +6,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/global.dart';
 
-Padding authtxtContainer({required String hint , required IconData icon, required bool isIcon}) {
+Padding authtxtContainer(
+    {required String hint, required IconData icon, required bool isIcon}) {
   return Padding(
-    padding:  EdgeInsets.only(top: 30.h, left: 28.w, right: 28.w),
+    padding: EdgeInsets.only(top: 30.h, left: 28.w, right: 28.w),
     child: TextField(
+      // controller: ,
       decoration: InputDecoration(
         hintText: hint,
-        prefixIcon:(isIcon)?Icon(icon,color: greyColor,size: 30.sp,):null,
+        prefixIcon: (isIcon)
+            ? Icon(
+                icon,
+                color: greyColor,
+                size: 30.sp,
+              )
+            : null,
         hintStyle: GoogleFonts.roboto(textStyle: TextStyle(color: greyColor)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),

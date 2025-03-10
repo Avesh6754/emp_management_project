@@ -43,6 +43,8 @@ dependencies:
   flutter_screenutil: ^5.9.3
   auto_size_text: any
   table_calendar: ^3.2.0
+  firebase_auth: ^5.5.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

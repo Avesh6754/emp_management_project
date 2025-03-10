@@ -1,4 +1,5 @@
 import 'package:emp_management/component/common_compo.dart';
+import 'package:emp_management/services/auth_services.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,13 +35,22 @@ class SignupPage extends StatelessWidget {
             SizedBox(
               height: 25.h,
             ),
-            commonButton(
+
+            /// todo for deep : sing up logic code ..................................................
+            GestureDetector(
+              onTap: () {
+                // AuthServices.authServices
+                //     .createAccount(email: , password: password);
+              },
+              child: commonButton(
                 name: 'Sign Up',
                 color: greenColor,
                 txtColor: whiteColor,
-                boarderColor: greenColor),
+                boarderColor: greenColor,
+              ),
+            ),
             Padding(
-              padding:  EdgeInsets.only(top: 8.h, right: 130.w),
+              padding: EdgeInsets.only(top: 8.h, right: 130.w),
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushNamed('/signIn');
@@ -64,11 +74,9 @@ class SignupPage extends StatelessWidget {
             // TODO for create account with google..........................0.
             //TODO yaha pe digloue box banana baki he.............................
             Padding(
-              padding:  EdgeInsets.only(right: 28.w, left: 28.w, top: 20.h),
+              padding: EdgeInsets.only(right: 28.w, left: 28.w, top: 20.h),
               child: GestureDetector(
-                onTap: () {
-
-                },
+                onTap: () {},
                 child: Container(
                   height: 60.h,
                   width: double.infinity,
