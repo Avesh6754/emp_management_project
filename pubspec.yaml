@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.20.2
   percent_indicator: ^4.2.4
   firebase_core: ^3.12.1
+  geocoding: ^3.0.0
   flutter_screenutil: ^5.9.3
   auto_size_text: any
   table_calendar: ^3.2.0

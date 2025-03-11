@@ -1,3 +1,4 @@
+import 'package:emp_management/controller/emp_Controller.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:emp_management/views/component/app_bar_udf.dart';
 import 'package:emp_management/views/component/location_udf.dart';
@@ -6,12 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'drawer.dart';
 
 class CheckInOutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var emp_roviderTrue=Provider.of<EmpController>(context,listen: true);
+    var emp_roviderfalse=Provider.of<EmpController>(context,listen: false);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -32,8 +36,9 @@ class CheckInOutScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CupertinoButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed('/location');
+                  onPressed: ()  async {
+                    await emp_roviderfalse.getCurrentLocation();
+                    Navigator.of(context).pushNamed('/location');
                   },
                   child: buildButton(
                       Icons.thumb_up, 'In', Colors.green, Colors.white)),

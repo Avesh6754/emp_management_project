@@ -1,5 +1,5 @@
 class AttendanceModel {
-  String? name, email, checkIn, checkOut, status;
+  String? name, email, checkIn, checkOut, status,address;
   var long, lat;
 
   AttendanceModel({
@@ -10,6 +10,7 @@ class AttendanceModel {
     required this.checkOut,
     required this.lat,
     required this.long,
+    required this.address
   });
 
   factory AttendanceModel.fromMap(Map m1) {
@@ -19,6 +20,7 @@ class AttendanceModel {
         name: m1['name'],
         checkIn: m1['checkIn'],
         checkOut: m1['checkOut'],
+        address: m1['address'],
         lat: m1['lat'],
         long: m1['long']);
   }
@@ -29,6 +31,7 @@ class AttendanceModel {
       'email': model.email,
       'lat': model.lat,
       'long': model.long,
+      'address':model.address,
       'checkOut': model.checkOut,
       'checkIn': model.checkIn,
       'status': model.status,

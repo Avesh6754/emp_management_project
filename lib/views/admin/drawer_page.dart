@@ -173,25 +173,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .email!,
                                           );
 
-                                          AttendanceModel employee =
-                                              AttendanceModel(
-                                            email: providerTrue
-                                                .employeeRequestList[index]
-                                                .email,
-                                            status: "Enter your status...",
-                                            name: providerTrue
-                                                .employeeRequestList[index]
-                                                .name,
-                                            checkIn: "add",
-                                            checkOut: "out",
-                                            lat: 1.1,
-                                            long: 1.2,
-                                          );
-
-                                          await AddFireStoreAttendance
-                                              .addAttendance
-                                              .addEmployeeRequest(employee);
-
                                           Navigator.of(context).pop();
                                         },
                                         child: Text(

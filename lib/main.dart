@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import 'controller/emp_Controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -24,8 +25,11 @@ class MyApp extends StatelessWidget {
       designSize: Size(375, 812), //this
       minTextAdapt: true,
       splitScreenMode: true,
-      child: ChangeNotifierProvider(
-        create: (context) => AuthController(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => AuthController(),),
+          ChangeNotifierProvider(create: (context) => EmpController(),)
+        ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           routes: routes,

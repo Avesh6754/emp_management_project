@@ -58,7 +58,7 @@ class _FirstPageState extends State<FirstPage> {
                   ' Now you are at NBR', minFontSize: 18,
                   maxLines: 2,
                   style:
-                      GoogleFonts.roboto(textStyle: TextStyle(fontSize: 20.sp)),
+                      GoogleFonts.roboto(textStyle: TextStyle(fontSize: 18.sp)),
                 ),
               ],
             ),
@@ -211,13 +211,13 @@ class _FirstPageState extends State<FirstPage> {
                       '09:55',
                       style: GoogleFonts.roboto(
                         textStyle: TextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold),
+                            fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Text('Check In',
                         style: GoogleFonts.roboto(
                             textStyle: TextStyle(
-                                color: Colors.grey, fontSize: 20.sp))),
+                                color: Colors.grey, fontSize: 18.sp))),
                   ],
                 ),
                 Column(
@@ -231,11 +231,11 @@ class _FirstPageState extends State<FirstPage> {
                     Text('--:--',
                         style: GoogleFonts.roboto(
                             textStyle: TextStyle(
-                                fontSize: 20.sp, fontWeight: FontWeight.bold))),
+                                fontSize: 16.sp, fontWeight: FontWeight.bold))),
                     Text('Check Out',
                         style: GoogleFonts.roboto(
                             textStyle: TextStyle(
-                                color: Colors.grey, fontSize: 20.sp))),
+                                color: Colors.grey, fontSize: 18.sp))),
                   ],
                 ),
                 Column(
@@ -249,13 +249,13 @@ class _FirstPageState extends State<FirstPage> {
                     Text('--:--',
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                              fontSize: 16.sp, fontWeight: FontWeight.bold),
                         )),
                     Text(
                       "Working Hr's",
                       style: GoogleFonts.roboto(
                         textStyle:
-                            TextStyle(color: Colors.grey, fontSize: 20.sp),
+                        TextStyle(color: Colors.grey, fontSize: 18.sp),
                       ),
                     ),
                   ],
