@@ -1,8 +1,11 @@
 import 'package:emp_management/component/common_compo.dart';
+import 'package:emp_management/controller/auth_controller.dart';
+import 'package:emp_management/services/auth_services.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../component/textfiled_compo.dart';
 
@@ -11,6 +14,9 @@ class AdminSignin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var providerTrue = Provider.of<AuthController>(context, listen: true);
+    var providerFalse = Provider.of<AuthController>(context, listen: false);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -32,13 +38,13 @@ class AdminSignin extends StatelessWidget {
                 hint: 'Email',
                 isIcon: false,
                 icon: Icons.add,
-                txtController: TextEditingController(),
+                txtController: providerTrue.txtEmail,
               ),
               authtxtContainer(
                 hint: 'Password',
                 isIcon: false,
                 icon: Icons.add,
-                txtController: TextEditingController(),
+                txtController: providerTrue.txtPassword,
               ),
               Padding(
                 padding: EdgeInsets.only(right: 220.w, top: 5.h),
@@ -50,8 +56,21 @@ class AdminSignin extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed('/adminhome');
+                onTap: () async {
+                  String value = await AuthServices.authServices.signIn(
+                    email: providerTrue.txtEmail.text,
+                    password: providerTrue.txtPassword.text,
+                  );
+
+                  if (value == "signIn") {
+                    Navigator.of(context).pushReplacementNamed('/adminhome');
+                  }
+                  else{
+                    final snackBar = SnackBar(
+                      content: Text("Email or Password are wrong..."),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
                 },
                 child: Padding(
                   padding: EdgeInsets.all(8.0.r),

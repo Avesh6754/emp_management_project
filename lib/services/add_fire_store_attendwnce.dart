@@ -7,10 +7,48 @@ class AddFireStoreAttendance {
   static AddFireStoreAttendance addAttendance = AddFireStoreAttendance._();
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
-  Future<void> addEmployeeRequest(AttendanceModel employee) async {
+  Future<void> addEmployee(AttendanceModel employee) async {
     await _fireStore
         .collection("Employee Attendance")
         .doc(employee.email)
         .set(AttendanceModel.toMap(employee));
+  }
+
+  Future<void> updateAttendanceCheckIn({
+    required String email,
+    required String address,
+    required String checkIn,
+    required String checkOut,
+    required var lat,
+    required var long,
+    required String status,
+  }) async {
+    await _fireStore.collection("Employee Attendance").doc(email).update({
+      "address": address,
+      "checkIn": checkIn,
+      "checkOut": checkOut,
+      "email": email,
+      "lat": lat,
+      "long": long,
+      "status": status
+    });
+  }
+  Future<void> updateAttendanceCheckOut({
+    required String email,
+    required String address,
+    required String checkIn,
+    required String checkOut,
+    required var lat,
+    required var long,
+    required String status,
+  }) async {
+    await _fireStore.collection("Employee Attendance").doc(email).update({
+      "address": address,
+      "checkOut": checkOut,
+      "email": email,
+      "lat": lat,
+      "long": long,
+      "status": status
+    });
   }
 }

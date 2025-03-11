@@ -7,6 +7,7 @@ import 'package:emp_management/services/add_fire_store_attendwnce.dart';
 import 'package:emp_management/services/auth_services.dart';
 import 'package:emp_management/views/component/app_bar_udf.dart';
 import 'package:emp_management/views/component/static_date_time.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -172,6 +173,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .employeeRequestList[index]
                                                 .email!,
                                           );
+
+                                          AttendanceModel employee =
+                                              AttendanceModel(
+                                            email: providerTrue
+                                                .employeeRequestList[index]
+                                                .email!,
+                                            status: 'Present',
+                                            name: providerTrue
+                                                .employeeRequestList[index]
+                                                .name!,
+                                            checkIn: DateTime.now()
+                                                .toIso8601String(),
+                                            checkOut: '',
+                                            lat: 0.0,
+                                            long: 0.0,
+                                            address: "",
+                                          );
+                                          await AddFireStoreAttendance
+                                              .addAttendance
+                                              .addEmployee(employee);
 
                                           Navigator.of(context).pop();
                                         },

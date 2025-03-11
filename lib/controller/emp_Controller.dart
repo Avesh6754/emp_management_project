@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:emp_management/services/auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,6 +12,17 @@ import '../services/add_fire_store_attendwnce.dart';
 class EmpController extends ChangeNotifier {
   String? empName, empEmail, empCheckIn, empCheckOut, empStatus, empAddress;
   double? empLatitude, empLongitude;
+  final User? user = AuthServices.authServices.currentUser();
+
+  bool _isCheckedIn = false;
+
+  bool get isCheckedIn => _isCheckedIn;
+
+  void setCheckInStatus(bool status) {
+    _isCheckedIn = status;
+    notifyListeners();
+  }
+
 
   /// Get the current position
   Future<void> getCurrentLocation() async {
@@ -67,18 +80,5 @@ class EmpController extends ChangeNotifier {
       print("Error getting address: $e");
     }
     return "Unknown Location";
-  }
-
-  Future<void> checkLocation() async {
-    AttendanceModel employee = AttendanceModel(
-        email: empEmail,
-        status: 'Present',
-        name: empName,
-        checkIn: DateTime.now().toIso8601String(),
-        checkOut: '',
-        lat: empLatitude,
-        long: empLongitude,
-        address: empAddress);
-    await AddFireStoreAttendance.addAttendance.addEmployeeRequest(employee);
   }
 }
