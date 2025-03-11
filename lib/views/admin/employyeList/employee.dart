@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emp_management/modal/collection_of_attendance.dart';
+import 'package:emp_management/services/collection_of_attendance.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:emp_management/views/admin/employee%20data/employee_statics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../../../controller/emp_Controller.dart';
 import '../component/admin_drawer.dart';
 
 class EmployeeListScreen extends StatelessWidget {
@@ -25,6 +30,9 @@ class EmployeeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var emp_provider_true = Provider.of<EmpController>(context, listen: true);
+    var emp_provider_false = Provider.of<EmpController>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: greenColor,
@@ -41,99 +49,123 @@ class EmployeeListScreen extends StatelessWidget {
         ),
       ),
       drawer: admin_Drawer_Method(context),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10.0.r),
-            child: RichText(
-              text: TextSpan(
-                text: 'Total Employees:',
-                style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black54,
-                  ),
-                ),
-                children: [
-                  TextSpan(
-                    text: ' 25  ',
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff73AB6B),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+      body: StreamBuilder(
+        stream: CollectionOfAttendance.collectionAttendance
+            .oneDayDateShow(date: DateTime.now().day.toString()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            // List<QueryDocumentSnapshot<Map<String, dynamic>>> data =
+            //     snapshot.data!.docs;
+            // emp_provider_true.oneDateEmpList = data
+            //     .map(
+            //       (e) => CollectionOfAttendanceModel.fromMap(e.data()),
+            //     )
+            //     .toList();
 
-            ),
-          ),
-          Divider(color: Colors.black38),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal:20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // print(emp_provider_true.oneDateEmpList);
+            return Column(
               children: [
-                Text(
-                  "Name",
-                  style: GoogleFonts.roboto(
-                    textStyle: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
                 Padding(
-                  padding:  EdgeInsets.only(right: 30.w),
-                  child: Text(
-                    "Preview",
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
+                  padding: EdgeInsets.all(10.0.r),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Total Employees:',
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54,
+                        ),
                       ),
+                      children: [
+                        TextSpan(
+                          text: ' 25  ',
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff73AB6B),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Divider(color: Colors.black38),
-          Expanded(
-            child: ListView.builder(
-              itemCount: employees.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmployeeStatisticsScreen(),));
-                  },
-                  child: Padding(
-                    padding:  EdgeInsets.only(left: 10.w,right:40.w
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        employees[index],
+                Divider(color: Colors.black38),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Name",
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
                             fontSize: 18.sp,
-                            color: Colors.black,
                             fontWeight: FontWeight.w400,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                      trailing: Icon(Icons.remove_red_eye_outlined,color: Color(0xffB1B1B1),),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 30.w),
+                        child: Text(
+                          "Preview",
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                );
-              },
-            ),
-          ),
-        ],
+                ),
+                Divider(color: Colors.black38),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: employees.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => EmployeeStatisticsScreen(),
+                          ));
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10.w, right: 40.w),
+                          child: ListTile(
+                            title: Text(
+                              employees[index],
+                              style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                  fontSize: 18.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.remove_red_eye_outlined,
+                              color: Color(0xffB1B1B1),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Icon(Icons.error_outline);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
       ),
     );
   }

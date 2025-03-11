@@ -29,4 +29,13 @@ class CollectionOfAttendance {
         .doc("1")
         .update({"checkOut": checkOut});
   }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> oneDayDateShow({
+    required String date,
+  }) {
+    return _fireStore
+        .collection("Collection Of Attendance")
+        .doc(date)
+        .snapshots();
+  }
 }

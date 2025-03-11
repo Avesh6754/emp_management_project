@@ -174,6 +174,8 @@ class CheckInOutScreen extends StatelessWidget {
                           checkIn: DateTime.now().toString(),
                           date: DateTime.now().day.toString(),
                           attendanceTime: "",
+                          reason: "",
+                          attendanceStatus: "",
                         );
 
                         CollectionOfAttendance.collectionAttendance

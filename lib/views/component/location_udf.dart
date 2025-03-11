@@ -42,15 +42,19 @@ class OfficeLocationScreen extends StatelessWidget {
               children: [
                 Icon(
                   ((empProviderTrue.empAddress !=
-                      "police station, Surat, Gujarat, India"))
-                      ? Icons.warning:((empProviderTrue.empAddress !=
-                      "Uma plaza Star Circle, Surat, Gujarat, India"))?Icons.check_circle
-                      : Icons.warning,
-                  color:((empProviderTrue.empAddress !=
-                      "police station, Surat, Gujarat, India"))
-                      ? Colors.amber:((empProviderTrue.empAddress !=
-                      "Uma plaza Star Circle, Surat, Gujarat, India"))?Colors.green
-                      : Colors.amber,
+                          "police station, Surat, Gujarat, India"))
+                      ? Icons.warning
+                      : ((empProviderTrue.empAddress !=
+                              "Uma plaza Star Circle, Surat, Gujarat, India"))
+                          ? Icons.check_circle
+                          : Icons.warning,
+                  color: ((empProviderTrue.empAddress !=
+                          "police station, Surat, Gujarat, India"))
+                      ? Colors.amber
+                      : ((empProviderTrue.empAddress !=
+                              "Uma plaza Star Circle, Surat, Gujarat, India"))
+                          ? Colors.green
+                          : Colors.amber,
                   size: 28.sp,
                 ),
                 SizedBox(width: 8.w),
@@ -68,20 +72,24 @@ class OfficeLocationScreen extends StatelessWidget {
                 ),
                 AutoSizeText(
                   ((empProviderTrue.empAddress !=
-                      "police station, Surat, Gujarat, India"))
-                      ? 'You are not in office range':((empProviderTrue.empAddress !=
-                      "Uma plaza Star Circle, Surat, Gujarat, India"))?'Now you are at NBR'
-                      : "You are not in office range",
+                          "police station, Surat, Gujarat, India"))
+                      ? 'You are not in office range'
+                      : ((empProviderTrue.empAddress !=
+                              "Uma plaza Star Circle, Surat, Gujarat, India"))
+                          ? 'Now you are at NBR'
+                          : "You are not in office range",
                   minFontSize: 18,
                   maxLines: 2,
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
                       fontSize: 18.sp,
-                      color:  ((empProviderTrue.empAddress !=
-                          "police station, Surat, Gujarat, India"))
-                          ? Colors.red:((empProviderTrue.empAddress !=
-                          "Uma plaza Star Circle, Surat, Gujarat, India"))?Colors.black
-                          : Colors.red,
+                      color: ((empProviderTrue.empAddress !=
+                              "police station, Surat, Gujarat, India"))
+                          ? Colors.red
+                          : ((empProviderTrue.empAddress !=
+                                  "Uma plaza Star Circle, Surat, Gujarat, India"))
+                              ? Colors.black
+                              : Colors.red,
                     ),
                   ),
                 ),
@@ -95,6 +103,9 @@ class OfficeLocationScreen extends StatelessWidget {
               height: 200.h,
               width: double.infinity,
               decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/image/map.png"),
+                    fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(10.r),
                 color: Colors.grey[300],
               ),
@@ -194,7 +205,7 @@ class OfficeLocationScreen extends StatelessWidget {
 
             /// Office Range Note
             ((empProviderTrue.empAddress !=
-                        "police station, Surat, Gujarat, India"))
+                    "police station, Surat, Gujarat, India"))
                 ? Column(
                     children: [
                       Text(
@@ -214,106 +225,108 @@ class OfficeLocationScreen extends StatelessWidget {
                     ],
                   )
                 : ((empProviderTrue.empAddress !=
-                "Uma plaza Star Circle, Surat, Gujarat, India"))?Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
+                        "Uma plaza Star Circle, Surat, Gujarat, India"))
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Icon(
-                            Icons.access_time,
-                            color: Colors.green,
-                            size: 50.sp,
-                          ),
-                          SizedBox(height: 5.h),
-                          Text(
-                            '09:55',
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                color: Colors.green,
+                                size: 50.sp,
                               ),
+                              SizedBox(height: 5.h),
+                              Text(
+                                '09:55',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'Check In',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 18.sp),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                color: Colors.grey,
+                                size: 50.sp,
+                              ),
+                              SizedBox(height: 5.h),
+                              Text(
+                                '--:--',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'Check Out',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 18.sp),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.check_circle,
+                                color: Colors.green,
+                                size: 50.sp,
+                              ),
+                              SizedBox(height: 5.h),
+                              Text(
+                                '--:--',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "Working Hr's",
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 18.sp),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Text(
+                            "Note: Please go inside Office range then ",
+                            style: GoogleFonts.roboto(
+                              textStyle: TextStyle(fontSize: 16.sp),
                             ),
                           ),
                           Text(
-                            'Check In',
+                            "try again!",
                             style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp),
+                              fontSize: 16.sp,
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.access_time,
-                            color: Colors.grey,
-                            size: 50.sp,
-                          ),
-                          SizedBox(height: 5.h),
-                          Text(
-                            '--:--',
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            'Check Out',
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.check_circle,
-                            color: Colors.green,
-                            size: 50.sp,
-                          ),
-                          SizedBox(height: 5.h),
-                          Text(
-                            '--:--',
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "Working Hr's",
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                  color: Colors.grey, fontSize: 18.sp),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ):Column(
-              children: [
-                Text(
-                  "Note: Please go inside Office range then ",
-                  style: GoogleFonts.roboto(
-                    textStyle: TextStyle(fontSize: 16.sp),
-                  ),
-                ),
-                Text(
-                  "try again!",
-                  style: GoogleFonts.roboto(
-                    fontSize: 16.sp,
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
 
             SizedBox(height: 20.h),
           ],

@@ -7,12 +7,16 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../modal/attendence_model.dart';
+import '../modal/collection_of_attendance.dart';
 import '../services/add_fire_store_attendwnce.dart';
 
 class EmpController extends ChangeNotifier {
   String? empName, empEmail, empCheckIn, empCheckOut, empStatus, empAddress;
   double? empLatitude, empLongitude;
   final User? user = AuthServices.authServices.currentUser();
+
+  /// todo : list of one day emp data
+  List<CollectionOfAttendanceModel> oneDateEmpList = [];
 
   bool _isCheckedIn = false;
 
@@ -22,7 +26,6 @@ class EmpController extends ChangeNotifier {
     _isCheckedIn = status;
     notifyListeners();
   }
-
 
   /// Get the current position
   Future<void> getCurrentLocation() async {

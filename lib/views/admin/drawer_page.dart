@@ -146,10 +146,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         TextField(
                                           controller: TextEditingController(
-                                              text: providerTrue
-                                                  .employeeRequestList[index]
-                                                  .status!),
+                                            text: providerTrue
+                                                .employeeRequestList[index]
+                                                .status!,
+                                          ),
                                           enabled: false,
+                                        ),
+                                        TextField(
+                                          controller: providerTrue.txtRoll,
+                                          decoration: InputDecoration(
+                                            hintText: "Enter Roll....",
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -189,6 +196,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             lat: 0.0,
                                             long: 0.0,
                                             address: "",
+
+                                            /// todo: add roll by text filed
+                                            roll: providerTrue.txtRoll.text,
                                           );
                                           await AddFireStoreAttendance
                                               .addAttendance
