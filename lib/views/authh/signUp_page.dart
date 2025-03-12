@@ -24,7 +24,10 @@ class SignupPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 180.h,
+                height: 80.h,
+              ),
+              Image(
+                image: AssetImage("assets/image/logoimage.png",),height: 150,
               ),
               Text(
                 "Sign Up for Better Experience",
@@ -100,25 +103,6 @@ class SignupPage extends StatelessWidget {
               ),
               // TODO for create account with google..........................0.
               //TODO yaha pe digloue box banana baki he.............................
-              Padding(
-                padding: EdgeInsets.only(right: 28.w, left: 28.w, top: 20.h),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 60.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(color: greyColor),
-                      image: DecorationImage(
-                        image:
-                            AssetImage('assets/image/countiuneWithGoogle.png'),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
