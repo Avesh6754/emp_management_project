@@ -108,16 +108,11 @@
 //       ),
 //     );
 //   }
-// }
-import 'package:emp_management/controller/auth_controller.dart';
+// }\
 import 'package:emp_management/controller/emp_Controller.dart';
-import 'package:emp_management/modal/attendence_model.dart';
 import 'package:emp_management/modal/collection_of_attendance.dart';
-import 'package:emp_management/services/add_fire_store_attendwnce.dart';
 import 'package:emp_management/services/collection_of_attendance.dart';
 import 'package:emp_management/utils/global.dart';
-import 'package:emp_management/views/component/app_bar_udf.dart';
-import 'package:emp_management/views/component/location_udf.dart';
 import 'package:emp_management/views/component/static_date_time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -157,16 +152,6 @@ class CheckInOutScreen extends StatelessWidget {
                     ? null
                     : () async {
                         await empProvider.getCurrentLocation();
-                        await AddFireStoreAttendance.addAttendance
-                            .updateAttendanceCheckIn(
-                          email: empProvider.user!.email!,
-                          address: empProvider.empAddress!,
-                          checkIn: DateTime.now().toString(),
-                          checkOut: "",
-                          lat: empProvider.empLatitude,
-                          long: empProvider.empLongitude,
-                          status: "present",
-                        );
                         CollectionOfAttendanceModel employee =
                             CollectionOfAttendanceModel(
                           email: empProvider.user!.email!,
@@ -178,7 +163,7 @@ class CheckInOutScreen extends StatelessWidget {
                           attendanceStatus: "",
                         );
 
-                        CollectionOfAttendance.collectionAttendance
+                        await CollectionOfAttendance.collectionAttendance
                             .addCollectionEmployee(
                           employee,
                           DateTime.now().day.toString(),
@@ -199,36 +184,21 @@ class CheckInOutScreen extends StatelessWidget {
                 onPressed: !isCheckedIn
                     ? null
                     : () async {
-                        await AddFireStoreAttendance.addAttendance
-                            .updateAttendanceCheckOut(
-                          email: empProvider.user!.email!,
-                          address: empProvider.empAddress!,
-                          checkIn: "",
-                          checkOut: DateTime.now().toString(),
-                          lat: empProvider.empLatitude,
-                          long: empProvider.empLongitude,
-                          status: "present",
-                        );
                         CollectionOfAttendanceModel employee =
-                        CollectionOfAttendanceModel(
+                            CollectionOfAttendanceModel(
                           email: empProvider.user!.email!,
                           checkOut: DateTime.now().toString(),
-                          checkIn:"",
+                          checkIn: "",
                           date: DateTime.now().day.toString(),
                           attendanceTime: "",
                           reason: "",
                           attendanceStatus: "",
                         );
-                        await CollectionOfAttendance.collectionAttendance.updateCollectionEmployee(
-
+                        await CollectionOfAttendance.collectionAttendance
+                            .updateCollectionEmployee(
                           employee,
                           DateTime.now().day.toString(),
                         );
-
-                        // CollectionOfAttendance.collectionAttendance.update(
-                        //     email: empProvider.user!.email!,
-                        //     date: DateTime.now().day.toString(),
-                        //     checkOut: DateTime.now().toString());
 
                         empProvider.setCheckInStatus(false);
                         Navigator.of(context).pushReplacementNamed('/location');

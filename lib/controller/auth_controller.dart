@@ -7,6 +7,7 @@ class AuthController extends ChangeNotifier {
   var txtEmail = TextEditingController();
   var txtPassword = TextEditingController();
   var txtRoll = TextEditingController();
+  var txtStatus = TextEditingController();
   String name = '';
 
   List<EmployeeRequest> employeeRequestList = [];

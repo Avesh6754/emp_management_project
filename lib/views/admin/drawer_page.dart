@@ -5,22 +5,14 @@ import 'package:emp_management/modal/employee_request.dart';
 import 'package:emp_management/services/add_fire_stor_employee_request.dart';
 import 'package:emp_management/services/add_fire_store_attendwnce.dart';
 import 'package:emp_management/services/auth_services.dart';
-import 'package:emp_management/views/component/app_bar_udf.dart';
-import 'package:emp_management/views/component/static_date_time.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:emp_management/services/collection_of_attendance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/global.dart';
-import 'attendance/attendance_list.dart';
-import 'attendance/attendance_page.dart';
 import 'component/admin_drawer.dart';
-import 'early leavers/eraly_leavers.dart';
-import 'employyeList/employee.dart';
-import 'late_comes/late_comes.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -180,29 +172,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .employeeRequestList[index]
                                                 .email!,
                                           );
+                                          AddDetails add = AddDetails(
+                                              name: providerTrue
+                                                  .employeeRequestList[index]
+                                                  .name!,
+                                              email: providerTrue
+                                                  .employeeRequestList[index]
+                                                  .email!,
+                                              position:
+                                                  providerTrue.txtRoll.text,
+                                              status: "",
+                                              date:
+                                                  "${DateTime.now().day} : ${DateTime.now().month} : ${DateTime.now().year}");
 
-                                          AttendanceModel employee =
-                                              AttendanceModel(
-                                            email: providerTrue
-                                                .employeeRequestList[index]
-                                                .email!,
-                                            status: 'Present',
-                                            name: providerTrue
-                                                .employeeRequestList[index]
-                                                .name!,
-                                            checkIn: DateTime.now()
-                                                .toIso8601String(),
-                                            checkOut: '',
-                                            lat: 0.0,
-                                            long: 0.0,
-                                            address: "",
+                                          CollectionOfAttendance
+                                              .collectionAttendance
+                                              .addDetails(add,
+                                                  "${DateTime.now().day} : ${DateTime.now().month} : ${DateTime.now().year}");
 
-                                            /// todo: add roll by text filed
-                                            roll: providerTrue.txtRoll.text,
-                                          );
-                                          await AddFireStoreAttendance
-                                              .addAttendance
-                                              .addEmployee(employee);
+                                          // AttendanceModel employee =
+                                          //     AttendanceModel(
+                                          //   email: providerTrue
+                                          //       .employeeRequestList[index]
+                                          //       .email!,
+                                          //   status: 'Present',
+                                          //   name: providerTrue
+                                          //       .employeeRequestList[index]
+                                          //       .name!,
+                                          //   checkIn: DateTime.now()
+                                          //       .toIso8601String(),
+                                          //   checkOut: '',
+                                          //   lat: 0.0,
+                                          //   long: 0.0,
+                                          //   address: "",
+                                          //
+                                          //   /// todo: add roll by text filed
+                                          //   roll: providerTrue.txtRoll.text,
+                                          // );
+                                          // await AddFireStoreAttendance
+                                          //     .addAttendance
+                                          //     .addEmployee(employee);
 
                                           Navigator.of(context).pop();
                                         },

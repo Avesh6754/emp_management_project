@@ -37,6 +37,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emp_management/modal/collection_of_attendance.dart';
+import 'package:emp_management/modal/employee_request.dart';
 
 class CollectionOfAttendance {
   CollectionOfAttendance._();
@@ -56,6 +57,7 @@ class CollectionOfAttendance {
           CollectionOfAttendanceModel.toMap(employee),
         );
   }
+
   Future<void> updateCollectionEmployee(
       CollectionOfAttendanceModel employee, String day) async {
     _fireStore
@@ -64,7 +66,16 @@ class CollectionOfAttendance {
         .collection(day)
         .doc(employee.email)
         .update(
-      {'checkOut':employee.checkOut},
+      {'checkOut': employee.checkOut},
     );
+  }
+
+  void addDetails(AddDetails add, String date) {
+    _fireStore
+        .collection("employee")
+        .doc("deatils")
+        .collection(date)
+        .doc(add.email)
+        .set(AddDetails.toMap(add));
   }
 }

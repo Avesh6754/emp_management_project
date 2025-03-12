@@ -88,17 +88,18 @@ class AdminSignin extends StatelessWidget {
                   },
                   child: RichText(
                     text: TextSpan(
-                        text: "Don't have an account?",
-                        style: GoogleFonts.roboto(
-                          color: Colors.black,
-                          fontSize: 15.sp,
-                        ),
-                        children: [
-                          TextSpan(
-                              text: ' Sign Up',
-                              style: GoogleFonts.roboto(
-                                  color: greenColor, fontSize: 15.sp))
-                        ]),
+                      text: "Don't have an account?",
+                      style: GoogleFonts.roboto(
+                        color: Colors.black,
+                        fontSize: 15.sp,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: ' Sign Up',
+                            style: GoogleFonts.roboto(
+                                color: greenColor, fontSize: 15.sp))
+                      ],
+                    ),
                   ),
                 ),
               ),

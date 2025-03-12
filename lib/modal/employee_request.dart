@@ -1,57 +1,41 @@
-// class EmployeeRequest {
-//   String id;
-//   String name;
-//   String email;
-//   String department;
-//   String position;
-//   // double latitude;
-//   // double longitude;
-//   String status; // Pending, Approved, Rejected
-//   DateTime requestedAt;
-//
-//   EmployeeRequest({
-//     required this.id,
-//     required this.name,
-//     required this.email,
-//     required this.department,
-//     required this.position,
-//     // required this.latitude,
-//     // required this.longitude,
-//     required this.status,
-//     required this.requestedAt,
-//   });
-//
-//   // Convert EmployeeRequest object to FireStore Map
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'name': name,
-//       'email': email,
-//       'department': department,
-//       'position': position,
-//       // 'location': {
-//       //   'latitude': latitude,
-//       //   'longitude': longitude,
-//       // },
-//       'status': status,
-//       'requestedAt': requestedAt.toIso8601String(),
-//     };
-//   }
-//
-//   // Create EmployeeRequest object from FireStore Map
-//   factory EmployeeRequest.fromMap(Map<String, dynamic> map, String id) {
-//     return EmployeeRequest(
-//       id: id,
-//       name: map['name'] ?? '',
-//       email: map['email'] ?? '',
-//       department: map['department'] ?? '',
-//       position: map['position'] ?? '',
-//       // latitude: (map['location']?['latitude'] ?? 0.0).toDouble(),
-//       // longitude: (map['location']?['longitude'] ?? 0.0).toDouble(),
-//       status: map['status'] ?? 'Pending',
-//       requestedAt: DateTime.parse(map['requestedAt'] ?? DateTime.now().toIso8601String()),
-//     );
-//   }
-// }
+class AddDetails {
+  // String id;
+  String name;
+  String email;
+  String position;
+  String status;
+  String date;
+
+  AddDetails({
+    required this.date,
+    required this.name,
+    required this.email,
+    required this.position,
+    required this.status,
+  });
+
+  // Convert EmployeeRequest object to FireStore Map
+  static Map<String, Object?> toMap(AddDetails details) {
+    return {
+      'date': details.date,
+      'name': details.name,
+      'email': details.email,
+      'position': details.position,
+      'status': details.status,
+    };
+  }
+
+  // Create EmployeeRequest object from FireStore Map
+  factory AddDetails.fromMap(Map m1) {
+    return AddDetails(
+      date: m1['date'],
+      name: m1['name'],
+      email: m1['email'],
+      position: m1['position'],
+      status: m1['status'],
+    );
+  }
+}
 
 class EmployeeRequest {
   String? email, name, password, status;

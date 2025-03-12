@@ -33,6 +33,7 @@ class AddFireStoreAttendance {
       "status": status
     });
   }
+
   Future<void> updateAttendanceCheckOut({
     required String email,
     required String address,
