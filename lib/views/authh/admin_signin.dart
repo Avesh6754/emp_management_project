@@ -62,15 +62,14 @@ class AdminSignin extends StatelessWidget {
                     password: providerTrue.txtPassword.text,
                   );
 
-                  if (value == "signIn") {
+
                     Navigator.of(context).pushReplacementNamed('/adminhome');
-                  }
-                  else{
-                    final snackBar = SnackBar(
-                      content: Text("Email or Password are wrong..."),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
+
+
+                    // final snackBar = SnackBar(
+                    //   content: Text("Email or Password are wrong..."),
+                    // );
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar)
                 },
                 child: Padding(
                   padding: EdgeInsets.all(8.0.r),

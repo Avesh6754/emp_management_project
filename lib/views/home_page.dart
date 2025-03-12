@@ -179,7 +179,10 @@ class CheckInOutScreen extends StatelessWidget {
                         );
 
                         CollectionOfAttendance.collectionAttendance
-                            .addCollectionEmployee(employee);
+                            .addCollectionEmployee(
+                          employee,
+                          DateTime.now().day.toString(),
+                        );
 
                         empProvider.setCheckInStatus(true);
 
@@ -207,10 +210,10 @@ class CheckInOutScreen extends StatelessWidget {
                           status: "present",
                         );
 
-                        CollectionOfAttendance.collectionAttendance.update(
-                            email: empProvider.user!.email!,
-                            date: DateTime.now().day.toString(),
-                            checkOut: DateTime.now().toString());
+                        // CollectionOfAttendance.collectionAttendance.update(
+                        //     email: empProvider.user!.email!,
+                        //     date: DateTime.now().day.toString(),
+                        //     checkOut: DateTime.now().toString());
 
                         empProvider.setCheckInStatus(false);
                         Navigator.of(context).pushReplacementNamed('/location');
