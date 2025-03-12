@@ -45,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
       body: Column(
         children: [
           Padding(
-            padding:  EdgeInsets.only(top: 200.h, left: 50.w),
+            padding:  EdgeInsets.only(top: 200.h, left:25.w),
             child: Container(
               height: 450.h,
               width: 450.w,
@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
                 // color: Colors.white,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/image/logoimage.png'),
+                  image: AssetImage('assets/image/splash.jpeg'),
                 ),
               ),
             ),

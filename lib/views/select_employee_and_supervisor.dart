@@ -50,7 +50,7 @@ class SelectEmployeeAndSupervisor extends StatelessWidget {
           ),
           Expanded(
             child: Image(
-              image: AssetImage("assets/image/logoimage.png"),
+              image: AssetImage("assets/image/splash.jpeg"),
             ),
           )
         ],
