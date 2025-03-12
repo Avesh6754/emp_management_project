@@ -209,6 +209,21 @@ class CheckInOutScreen extends StatelessWidget {
                           long: empProvider.empLongitude,
                           status: "present",
                         );
+                        CollectionOfAttendanceModel employee =
+                        CollectionOfAttendanceModel(
+                          email: empProvider.user!.email!,
+                          checkOut: DateTime.now().toString(),
+                          checkIn:"",
+                          date: DateTime.now().day.toString(),
+                          attendanceTime: "",
+                          reason: "",
+                          attendanceStatus: "",
+                        );
+                        await CollectionOfAttendance.collectionAttendance.updateCollectionEmployee(
+
+                          employee,
+                          DateTime.now().day.toString(),
+                        );
 
                         // CollectionOfAttendance.collectionAttendance.update(
                         //     email: empProvider.user!.email!,

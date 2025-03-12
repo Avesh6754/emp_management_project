@@ -56,4 +56,15 @@ class CollectionOfAttendance {
           CollectionOfAttendanceModel.toMap(employee),
         );
   }
+  Future<void> updateCollectionEmployee(
+      CollectionOfAttendanceModel employee, String day) async {
+    _fireStore
+        .collection("employee")
+        .doc("attendance")
+        .collection(day)
+        .doc(employee.email)
+        .update(
+      {'checkOut':employee.checkOut},
+    );
+  }
 }
