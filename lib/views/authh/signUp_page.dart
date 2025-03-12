@@ -27,7 +27,10 @@ class SignupPage extends StatelessWidget {
                 height: 80.h,
               ),
               Image(
-                image: AssetImage("assets/image/logoimage.png",),height: 150,
+                image: AssetImage(
+                  "assets/image/logoimage.png",
+                ),
+                height: 150,
               ),
               Text(
                 "Sign Up for Better Experience",
@@ -51,6 +54,9 @@ class SignupPage extends StatelessWidget {
                 txtController: providerTrue.txtEmail,
               ),
               authtxtContainer(
+
+
+
                 isIcon: true,
                 hint: 'password',
                 icon: Icons.lock_rounded,
@@ -101,8 +107,6 @@ class SignupPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // TODO for create account with google..........................0.
-              //TODO yaha pe digloue box banana baki he.............................
             ],
           ),
         ),
