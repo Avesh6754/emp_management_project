@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 
 import '../modal/attendence_model.dart';
 import '../modal/collection_of_attendance.dart';
+import '../modal/employee_request.dart';
 import '../services/add_fire_store_attendwnce.dart';
 
 class EmpController extends ChangeNotifier {
@@ -16,6 +17,7 @@ class EmpController extends ChangeNotifier {
   final User? user = AuthServices.authServices.currentUser();
 
   /// todo : list of one day emp data
+  List<AddDetails> allEmployeeData = [];
   List<CollectionOfAttendanceModel> oneDateEmpList = [];
 
   bool _isCheckedIn = false;

@@ -14,6 +14,11 @@ class UpdateProfileScreen extends StatelessWidget {
     var providerTrue = Provider.of<AuthController>(context, listen: true);
     var providerFalse = Provider.of<AuthController>(context, listen: false);
 
+    providerTrue.txtName.clear();
+    providerTrue.txtStatus.clear();
+    providerTrue.txtRoll.clear();
+    providerTrue.txtEmail.clear();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -52,15 +57,19 @@ class UpdateProfileScreen extends StatelessWidget {
                 onTap: () {
                   AddDetails add = AddDetails(
                     date:
-                        "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                        "${DateTime.now().day} : ${DateTime.now().month} : ${DateTime.now().year}",
                     name: providerTrue.txtName.text,
                     email: AuthServices.authServices.currentUser()!.email!,
                     position: providerTrue.txtRoll.text,
                     status: providerTrue.txtStatus.text,
                   );
 
-                  CollectionOfAttendance.collectionAttendance.addDetails(add,
-                      "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}");
+                  print(providerTrue.txtRoll.text);
+                  print(providerTrue.txtStatus.text);
+                  print(providerTrue.txtName.text);
+
+                  CollectionOfAttendance.collectionAttendance
+                      .updateDetails(add: add);
                 },
                 child: Container(
                   height: 55.h,
@@ -88,7 +97,7 @@ class UpdateProfileScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.0.h),
       child: TextField(
-        controller: (enabled) ? null : controller,
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle:

@@ -46,6 +46,8 @@ class CollectionOfAttendance {
       CollectionOfAttendance._();
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
+  /// todo : attendance list method
+
   Future<void> addCollectionEmployee(
       CollectionOfAttendanceModel employee, String day) async {
     _fireStore
@@ -70,12 +72,40 @@ class CollectionOfAttendance {
     );
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> oneDayEmployeeAttendance(
+      {required String day}) {
+    return _fireStore
+        .collection("employee")
+        .doc("attendance")
+        .collection(day)
+        .snapshots();
+  }
+
+  /// todo : details list method
   void addDetails(AddDetails add, String date) {
     _fireStore
         .collection("employee")
-        .doc("deatils")
+        .doc("details")
         .collection(date)
         .doc(add.email)
         .set(AddDetails.toMap(add));
+  }
+
+  void updateDetails({required AddDetails add}) {
+    _fireStore
+        .collection("employee")
+        .doc("details")
+        .collection(add.date)
+        .doc(add.email)
+        .update(AddDetails.toMap(add));
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> allEmployeeData(
+      {required String date}) {
+    return _fireStore
+        .collection("employee")
+        .doc("details")
+        .collection(date)
+        .snapshots();
   }
 }

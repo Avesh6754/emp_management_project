@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class CollectionOfAttendanceDate {
-  List<CollectionOfAttendanceModel> collectionOfAttendanceModel = [];
-
-  CollectionOfAttendanceDate({required this.collectionOfAttendanceModel});
-
-  factory CollectionOfAttendanceDate.fromFirestore(QuerySnapshot<Map<String, dynamic>> snapshot) {
-    return CollectionOfAttendanceDate(
-      collectionOfAttendanceModel: snapshot.docs
-          .map((doc) => CollectionOfAttendanceModel.fromMap(doc.data()))
-          .toList(),
-    );
-  }
-}
+// class CollectionOfAttendanceDate {
+//   List<CollectionOfAttendanceModel> collectionOfAttendanceModel = [];
+//
+//   CollectionOfAttendanceDate({required this.collectionOfAttendanceModel});
+//
+//   factory CollectionOfAttendanceDate.fromFirestore(QuerySnapshot<Map<String, dynamic>> snapshot) {
+//     return CollectionOfAttendanceDate(
+//       collectionOfAttendanceModel: snapshot.docs
+//           .map((doc) => CollectionOfAttendanceModel.fromMap(doc.data()))
+//           .toList(),
+//     );
+//   }
+// }
 
 class CollectionOfAttendanceModel {
   String? email,
