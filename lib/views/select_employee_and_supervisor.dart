@@ -1,3 +1,4 @@
+import 'package:emp_management/utils/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ class SelectEmployeeAndSupervisor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       body: Column(
         spacing: 40.sp,
         children: [

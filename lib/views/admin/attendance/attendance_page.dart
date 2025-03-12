@@ -286,6 +286,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               );
             } else if (snapshot.hasError) {
               return Icon(Icons.error_outline);
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
             } else {
               return CircularProgressIndicator();
             }

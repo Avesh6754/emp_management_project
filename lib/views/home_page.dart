@@ -120,13 +120,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../controller/time_controller.dart';
 import 'drawer.dart';
 
 class CheckInOutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var empProvider = Provider.of<EmpController>(context);
-    bool isCheckedIn = empProvider.isCheckedIn;
+    var dateproviderT=Provider.of<DateTimeProvider>(context,listen: true);
+    var dateproviderF=Provider.of<DateTimeProvider>(context,listen: false);
+    // empProvider.resetCheckInIfNewDay(); // Ensure daily reset
 
     return Scaffold(
       body: Column(
@@ -148,65 +151,65 @@ class CheckInOutScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CupertinoButton(
-                onPressed: isCheckedIn
+                onPressed: empProvider.isCheckedIn
                     ? null
                     : () async {
-                        await empProvider.getCurrentLocation();
-                        CollectionOfAttendanceModel employee =
-                            CollectionOfAttendanceModel(
-                          email: empProvider.user!.email!,
-                          checkOut: "",
-                          checkIn: DateTime.now().toString(),
-                          date: DateTime.now().day.toString(),
-                          attendanceTime: "",
-                          reason: "",
-                          attendanceStatus: "",
-                        );
+                  await empProvider.getCurrentLocation();
+                  CollectionOfAttendanceModel employee =
+                  CollectionOfAttendanceModel(
+                    email: empProvider.user!.email!,
+                    checkIn:dateproviderT.onlyTime ,
+                    checkOut: "",
+                    date: DateTime.now().day.toString(),
+                    attendanceTime: "",
+                    reason: "",
+                    attendanceStatus: "Present",
+                  );
 
-                        await CollectionOfAttendance.collectionAttendance
-                            .addCollectionEmployee(
-                          employee,
-                          DateTime.now().day.toString(),
-                        );
+                  await CollectionOfAttendance.collectionAttendance
+                      .addCollectionEmployee(
+                    employee,
+                    DateTime.now().day.toString(),
+                  );
 
-                        empProvider.setCheckInStatus(true);
-
-                        Navigator.of(context).pushNamed('/location');
-                      },
+                  empProvider.setCheckInStatus(true);
+                  Navigator.of(context).pushNamed('/location');
+                },
                 child: buildButton(
                   Icons.thumb_up,
                   'Check In',
-                  isCheckedIn ? Colors.grey : Colors.green,
+                  empProvider.isCheckedIn ? Colors.grey : Colors.green,
                   Colors.white,
                 ),
               ),
               CupertinoButton(
-                onPressed: !isCheckedIn
+                onPressed: !empProvider.isCheckedIn
                     ? null
                     : () async {
-                        CollectionOfAttendanceModel employee =
-                            CollectionOfAttendanceModel(
-                          email: empProvider.user!.email!,
-                          checkOut: DateTime.now().toString(),
-                          checkIn: "",
-                          date: DateTime.now().day.toString(),
-                          attendanceTime: "",
-                          reason: "",
-                          attendanceStatus: "",
-                        );
-                        await CollectionOfAttendance.collectionAttendance
-                            .updateCollectionEmployee(
-                          employee,
-                          DateTime.now().day.toString(),
-                        );
+                  CollectionOfAttendanceModel employee =
+                  CollectionOfAttendanceModel(
+                    email: empProvider.user!.email!,
+                    checkOut: dateproviderT.onlyTime ,
+                    checkIn: "",
+                    date: DateTime.now().day.toString(),
+                    attendanceTime: "",
+                    reason: "",
+                    attendanceStatus: "Present",
+                  );
 
-                        empProvider.setCheckInStatus(false);
-                        Navigator.of(context).pushReplacementNamed('/location');
-                      },
+                  await CollectionOfAttendance.collectionAttendance
+                      .updateCollectionEmployee(
+                    employee,
+                    DateTime.now().day.toString(),
+                  );
+
+                  empProvider.setCheckInStatus(false);
+                  Navigator.of(context).pushReplacementNamed('/location');
+                },
                 child: buildButton(
                   Icons.thumb_down,
                   'Check Out',
-                  !isCheckedIn ? Colors.grey : Colors.black54,
+                  !empProvider.isCheckedIn ? Colors.grey : Colors.black54,
                   Colors.white,
                 ),
               ),
@@ -247,3 +250,4 @@ class CheckInOutScreen extends StatelessWidget {
     );
   }
 }
+

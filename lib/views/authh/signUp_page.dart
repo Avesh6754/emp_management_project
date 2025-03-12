@@ -75,6 +75,7 @@ class SignupPage extends StatelessWidget {
                     status: "pending",
                     password: providerTrue.txtPassword.text,
                   );
+                  providerTrue.name=providerTrue.txtName.text;
                   AddFireStoreEmployeeRequest.addFireStoreRequest
                       .addEmployeeRequest(employee);
                 },

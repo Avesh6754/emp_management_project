@@ -45,13 +45,16 @@ class UpdateProfileScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-              _buildTextField("name", providerTrue.txtName, true),
+              _buildTextField(
+                  "name", providerTrue.txtName, providerTrue.isUpdate),
               _buildTextField(
                   AuthServices.authServices.currentUser()!.email.toString(),
                   TextEditingController(),
                   false),
-              _buildTextField("position", providerTrue.txtRoll, true),
-              _buildTextField("status", providerTrue.txtStatus, true),
+              _buildTextField(
+                  "position", providerTrue.txtRoll, providerTrue.isUpdate),
+              _buildTextField(
+                  "status", providerTrue.txtStatus, providerTrue.isUpdate),
               SizedBox(height: 20.h),
               GestureDetector(
                 onTap: () {
@@ -70,6 +73,15 @@ class UpdateProfileScreen extends StatelessWidget {
 
                   CollectionOfAttendance.collectionAttendance
                       .updateDetails(add: add);
+                  providerFalse.fixedProfile(providerTrue.isUpdate);
+                  (!providerTrue.isUpdate)
+                      ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            'Data Update',
+                          ),
+                          duration: Duration(seconds: 1),
+                        ))
+                      : null;
                 },
                 child: Container(
                   height: 55.h,

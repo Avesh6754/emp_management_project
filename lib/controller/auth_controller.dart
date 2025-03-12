@@ -9,6 +9,13 @@ class AuthController extends ChangeNotifier {
   var txtRoll = TextEditingController();
   var txtStatus = TextEditingController();
   String name = '';
+  bool isUpdate=false;
 
   List<EmployeeRequest> employeeRequestList = [];
+
+  void fixedProfile(var value)
+  {
+    isUpdate=!value;
+    notifyListeners();
+  }
 }

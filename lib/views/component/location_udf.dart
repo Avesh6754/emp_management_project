@@ -10,10 +10,31 @@ import 'package:provider/provider.dart';
 import '../../controller/emp_Controller.dart';
 import 'drawer_udf.dart';
 
-class OfficeLocationScreen extends StatelessWidget {
+class OfficeLocationScreen extends StatefulWidget {
   const OfficeLocationScreen({super.key});
 
   @override
+  State<OfficeLocationScreen> createState() => _OfficeLocationScreenState();
+}
+
+class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    /// Check the time when the screen loads
+    Future.delayed(Duration.zero, () {
+      _checkAndShowDialog();
+    });
+  }
+  void _checkAndShowDialog() {
+    DateTime now = DateTime.now();
+    DateTime nineThirtyAM = DateTime(now.year, now.month, now.day, 9, 30); // 9:30 AM
+
+    if (now.isAfter(nineThirtyAM)) {
+      _showLateDialog();
+    }
+  }
   Widget build(BuildContext context) {
     var empProviderTrue = Provider.of<EmpController>(context, listen: true);
     var empProviderFalse = Provider.of<EmpController>(context, listen: false);
@@ -103,9 +124,9 @@ class OfficeLocationScreen extends StatelessWidget {
               height: 200.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/image/map.png"),
-                    fit: BoxFit.cover),
+                // image: DecorationImage(
+                //     image: AssetImage("assets/image/map.png"),
+                //     fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(10.r),
                 color: Colors.grey[300],
               ),
@@ -133,72 +154,8 @@ class OfficeLocationScreen extends StatelessWidget {
 
             /// Late Arrival Alert Dialog
             ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "You are late!!!",
-                                style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 10.h),
-                              Icon(
-                                Icons.warning,
-                                color: Colors.red,
-                                size: 40.sp,
-                              ),
-                              SizedBox(height: 10.h),
-                              Text("Select a reason"),
-                              RadioListTile(
-                                title: Text("Traffic Jam"),
-                                value: "Traffic Jam",
-                                groupValue: '',
-                                activeColor: Colors.green,
-                                onChanged: (value) {},
-                              ),
-                              RadioListTile(
-                                title: Text("Health Issue"),
-                                value: "Health Issue",
-                                groupValue: '',
-                                activeColor: Colors.green,
-                                onChanged: (value) {},
-                              ),
-                              RadioListTile(
-                                title: Text("Others"),
-                                value: "Others",
-                                groupValue: '',
-                                activeColor: Colors.green,
-                                onChanged: (value) {},
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green,
-                                ),
-                                onPressed: () {},
-                                child: Text("Submit"),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Text('Save'),
+              onPressed: _showLateDialog, // Manually trigger the dialog
+              child: const Text('Save'),
             ),
 
             SizedBox(height: 20.h),
@@ -238,7 +195,7 @@ class OfficeLocationScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 5.h),
                               Text(
-                                '09:55',
+                              empProviderTrue.empCheckIn!.isNotEmpty?empProviderTrue.empCheckIn!:"--:--",
                                 style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
                                     fontSize: 16.sp,
@@ -334,4 +291,52 @@ class OfficeLocationScreen extends StatelessWidget {
       ),
     );
   }
+  void _showLateDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "You are late!!!",
+                style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10.h),
+              Icon(Icons.warning, color: Colors.red, size: 40.sp),
+              SizedBox(height: 10.h),
+              const Text("Select a reason"),
+              _buildRadioButton("Traffic Jam"),
+              _buildRadioButton("Health Issue"),
+              _buildRadioButton("Others"),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("Submit"),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+Widget _buildRadioButton(String title) {
+  return RadioListTile(
+    title: Text(title),
+    value: title,
+    groupValue: '',
+    activeColor: Colors.green,
+    onChanged: (value) {},
+  );
 }

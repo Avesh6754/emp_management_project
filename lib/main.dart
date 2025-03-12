@@ -1,4 +1,5 @@
 import 'package:emp_management/controller/auth_controller.dart';
+import 'package:emp_management/controller/time_controller.dart';
 import 'package:emp_management/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => AuthController(),),
-          ChangeNotifierProvider(create: (context) => EmpController(),)
+          ChangeNotifierProvider(create: (context) => EmpController(),),
+          ChangeNotifierProvider(create: (context) => DateTimeProvider(),),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

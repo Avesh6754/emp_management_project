@@ -20,14 +20,23 @@ class EmpController extends ChangeNotifier {
   List<AddDetails> allEmployeeData = [];
   List<CollectionOfAttendanceModel> oneDateEmpList = [];
 
-  bool _isCheckedIn = false;
-
-  bool get isCheckedIn => _isCheckedIn;
+  bool isCheckedIn = false;
+  String lastCheckInDate = "";
 
   void setCheckInStatus(bool status) {
-    _isCheckedIn = status;
+    isCheckedIn = status;
+    lastCheckInDate = DateTime.now().toIso8601String(); // Store current date
     notifyListeners();
   }
+
+  void resetCheckInIfNewDay() {
+    String today = DateTime.now().toIso8601String().split("T")[0];
+    if (lastCheckInDate.split("T")[0] != today) {
+      isCheckedIn = false; // Reset check-in for the new day
+      notifyListeners();
+    }
+  }
+
 
   /// Get the current position
   Future<void> getCurrentLocation() async {

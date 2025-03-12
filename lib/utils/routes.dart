@@ -1,3 +1,5 @@
+import 'package:emp_management/controller/auth_controller.dart';
+import 'package:emp_management/services/auth_services.dart';
 import 'package:emp_management/views/authh/admin_signin.dart';
 import 'package:emp_management/views/component/location_udf.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +16,13 @@ import '../views/authh/signUp_signIn_optipn.dart';
 import '../views/drawer.dart';
 import '../views/edit_profile_page.dart';
 import '../views/home_page.dart';
-import '../views/location_check/location_page.dart';
+
 import '../views/select_employee_and_supervisor.dart';
 import '../views/splash_page.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   '/': (context) => SplashPage(),
-  '/choose': (context) => SelectEmployeeAndSupervisor(),
+  '/choose': (context) =>(AuthServices.authServices.currentUser()==null)? SelectEmployeeAndSupervisor():(AuthServices.authServices.currentUser()!.email=='adminrnw@gmail.com')?HomeScreen():DrawerPage(),
   '/admin': (context) => AdminSignin(),
   '/option': (context) => OptionPage(),
   '/signIn': (context) => SigninPage(),
@@ -28,7 +30,6 @@ Map<String, Widget Function(BuildContext)> routes = {
   '/home': (context) => DrawerPage(),
   '/edit': (context) => UpdateProfileScreen(),
   '/location': (context) => OfficeLocationScreen(),
-  '/check': (context) => FirstPage(),
   '/adminhome':(context)=> HomeScreen(),
   '/attendance':(context)=> AttendanceScreen(),
   '/lateComers':(context)=> LateComersScreen(),

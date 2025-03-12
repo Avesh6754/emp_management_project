@@ -57,17 +57,22 @@ class AdminSignin extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () async {
-                  String value = await AuthServices.authServices.signIn(
-                    email: providerTrue.txtEmail.text,
-                    password: providerTrue.txtPassword.text,
-                  );
+                  if ((providerTrue.txtEmail.text=='adminrnw@gmail.com') &&(providerTrue.txtPassword.text=='RNW12345')) {
+                    await AuthServices.authServices.signIn(
+                      email: providerTrue.txtEmail.text,
+                      password: providerTrue.txtPassword.text,
+                    );
+                    Navigator.of(context).pushReplacementNamed('/adminhome');
+                  }
+                  else {
+                    final snackBar = SnackBar(
+                      content: Text("Email or Password are wrong..."),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
 
-                  Navigator.of(context).pushReplacementNamed('/adminhome');
 
-                  // final snackBar = SnackBar(
-                  //   content: Text("Email or Password are wrong..."),
-                  // );
-                  // ScaffoldMessenger.of(context).showSnackBar(snackBar)
+                  //
                 },
                 child: Padding(
                   padding: EdgeInsets.all(8.0.r),

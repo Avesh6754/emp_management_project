@@ -2,10 +2,14 @@ import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../../controller/emp_Controller.dart';
 
 class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var empProvider = Provider.of<EmpController>(context);
     return Drawer(
       child: Column(
         children: [
@@ -24,7 +28,7 @@ class SideMenu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(width: 30.w),
-                    Text("Hi! Kabir",
+                    Text( "Hi, ${empProvider.user?.email ?? ''}",
                         style: TextStyle(color: Colors.white, fontSize: 18.sp)),
                     IconButton(
                         onPressed: () {

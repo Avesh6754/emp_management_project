@@ -62,7 +62,7 @@ class SigninPage extends StatelessWidget {
                     email: providerTrue.txtEmail.text,
                     password: providerTrue.txtPassword.text,
                   );
-                  if (value == "signIn") {
+                  if ((value == "signIn") && (providerTrue.txtEmail.text!='adminrnw@gmail.com') &&(providerTrue.txtPassword.text!='RNW12345')) {
                     Navigator.of(context).pushReplacementNamed('/home');
                   } else {
                     final snackBar = SnackBar(

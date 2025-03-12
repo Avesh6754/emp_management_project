@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,6 +43,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       body: Column(
         children: [
           Padding(
