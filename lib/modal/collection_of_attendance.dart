@@ -22,9 +22,11 @@ class CollectionOfAttendanceModel {
       attendanceTime,
       reason,
       attendanceStatus;
+  bool isCheckIn;
 
   CollectionOfAttendanceModel({
     required this.email,
+    required this.isCheckIn,
     required this.checkOut,
     required this.checkIn,
     required this.date,
@@ -36,6 +38,7 @@ class CollectionOfAttendanceModel {
   factory CollectionOfAttendanceModel.fromMap(Map m1) =>
       CollectionOfAttendanceModel(
         email: m1['email'],
+        isCheckIn: m1['isCheckIn']?? false,
         checkOut: m1['checkOut'],
         checkIn: m1['checkIn'],
         date: m1['date'],
@@ -48,6 +51,7 @@ class CollectionOfAttendanceModel {
     return {
       'email': model.email,
       'date': model.date,
+      'isCheckIn':model.isCheckIn,
       'checkIn': model.checkIn,
       'checkOut': model.checkOut,
       'attendanceTime': model.attendanceTime,

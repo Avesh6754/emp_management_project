@@ -54,7 +54,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         ),
       ),
       drawer: admin_Drawer_Method(context),
-      body: StreamBuilder(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: CollectionOfAttendance.collectionAttendance
               .oneDayEmployeeAttendance(day: selectedDate.day.toString()),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -219,7 +219,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       itemCount: emp_provider_true.oneDateEmpList.length,
                       itemBuilder: (context, index) {
                         // final emp = employees[index];
-                        return ListTile(
+                        return (emp_provider_true.oneDateEmpList[index].date==DateFormat("dd").format(selectedDate))?ListTile(
                           title: Text(
                             emp_provider_true.oneDateEmpList[index].email
                                 .toString(),
@@ -232,7 +232,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                             ),
                           ),
                           subtitle: Text(
-                            "123456\nUI/UX Designer",
+                            emp_provider_true.oneDateEmpList[index].attendanceStatus
+                                .toString(),
                             style: GoogleFonts.roboto(
                               textStyle: TextStyle(
                                 fontSize: 14.sp,
@@ -249,15 +250,14 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                               children: [
                                 /// todo: check in date ne formet kar va nu che ...................
                                 Text(
-                                  "check in",
-                                  // emp_provider_true
-                                  //     .oneDateEmpList[index].checkIn!,
+                                  (emp_provider_true
+                                      .oneDateEmpList[index].checkIn!.isEmpty)?"00:00":emp_provider_true
+                                      .oneDateEmpList[index].checkIn!,
                                   style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
                                       fontSize: 16.sp,
-                                      color: true ? Colors.red : Colors.black,
                                       fontWeight: FontWeight.w400,
-                                    ),
+                                      color: (emp_provider_true
+                                          .oneDateEmpList[index].checkIn!.isEmpty)?Colors.red:Colors.black
                                   ),
                                 ),
                                 SizedBox(width: 15.w),
@@ -266,18 +266,22 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                 SizedBox(
                                   width: 55.w,
                                   child: Text(
-                                    "checkOut",
-                                    // emp_provider_true
-                                    //     .oneDateEmpList[index].checkOut!,
+                                    (emp_provider_true
+                                        .oneDateEmpList[index].checkOut!.isEmpty)?"00:00":emp_provider_true
+                                        .oneDateEmpList[index].checkOut!,
                                     style: GoogleFonts.roboto(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w400,
+                                      color: (emp_provider_true
+                                          .oneDateEmpList[index].checkOut!.isEmpty)?Colors.red:Colors.black
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
+                        ):Center(
+                          child: Text('This date Dont Have Any Data'),
                         );
                       },
                     ),

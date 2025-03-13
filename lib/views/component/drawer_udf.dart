@@ -1,3 +1,4 @@
+import 'package:emp_management/services/auth_services.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +51,17 @@ class SideMenu extends StatelessWidget {
           _buildDrawerItem(Icons.report, "Incident"),
           _buildDrawerItem(Icons.list, "Leaves"),
           _buildDrawerItem(Icons.lock, "Change Password"),
-          _buildDrawerItem(Icons.logout, "Log out"),
+          GestureDetector(onTap: () async {
+            await AuthServices.authServices.signOut();
+            Navigator.of(context).pushReplacementNamed('/choose');
+          },child: ListTile(
+            leading: Icon(Icons.logout, color: Colors.black54),
+            title: Text(
+              'Log Out',
+              style: GoogleFonts.roboto(textStyle: TextStyle(color: Colors.black54)),
+            ),
+          ),
+          ),
         ],
       ),
     );

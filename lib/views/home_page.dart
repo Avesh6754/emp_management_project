@@ -157,13 +157,19 @@ class CheckInOutScreen extends StatelessWidget {
                   await empProvider.getCurrentLocation();
                   CollectionOfAttendanceModel employee =
                   CollectionOfAttendanceModel(
+                    isCheckIn:empProvider.isCheckedIn,
                     email: empProvider.user!.email!,
-                    checkIn:dateproviderT.onlyTime ,
+                    checkIn:((empProvider.empAddress !=
+                        "police station, Surat, Gujarat, India"))? "":((empProvider.empAddress !=
+                        "Uma plaza Star Circle, Surat, Gujarat, India"))
+                        ?dateproviderT.onlyTime:"" ,
                     checkOut: "",
                     date: DateTime.now().day.toString(),
                     attendanceTime: "",
                     reason: "",
-                    attendanceStatus: "Present",
+                    attendanceStatus:  ((empProvider.empAddress !=
+                        "police station, Surat, Gujarat, India"))? "Absent":((empProvider.empAddress !=
+                        "Uma plaza Star Circle, Surat, Gujarat, India"))?"Present":"Absent",
                   );
 
                   await CollectionOfAttendance.collectionAttendance
@@ -188,13 +194,19 @@ class CheckInOutScreen extends StatelessWidget {
                     : () async {
                   CollectionOfAttendanceModel employee =
                   CollectionOfAttendanceModel(
+                    isCheckIn:empProvider.isCheckedIn,
                     email: empProvider.user!.email!,
-                    checkOut: dateproviderT.onlyTime ,
+                    checkOut:((empProvider.empAddress !=
+                        "police station, Surat, Gujarat, India"))? "":((empProvider.empAddress !=
+                        "Uma plaza Star Circle, Surat, Gujarat, India"))
+                        ?dateproviderT.onlyTime:"" ,
                     checkIn: "",
                     date: DateTime.now().day.toString(),
                     attendanceTime: "",
                     reason: "",
-                    attendanceStatus: "Present",
+                    attendanceStatus: ((empProvider.empAddress !=
+                        "police station, Surat, Gujarat, India"))? "Absent":((empProvider.empAddress !=
+                        "Uma plaza Star Circle, Surat, Gujarat, India"))?"Present":"Absent",
                   );
 
                   await CollectionOfAttendance.collectionAttendance

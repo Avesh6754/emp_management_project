@@ -78,7 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 50.sp,
                 ),
                 Text(
-                  'Pending ${1}',
+                  (providerTrue.employeeRequestList.contains('Pending'))
+                      ? 'Pending ${providerTrue.employeeRequestList.length}'
+                      : 'Pending ${0}',
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
                       fontSize: 18.sp,
