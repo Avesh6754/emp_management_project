@@ -68,19 +68,20 @@ class CollectionOfAttendance {
         .collection(day)
         .doc(employee.email)
         .update(
-      {'checkOut': employee.checkOut},
+      {'checkOut': employee.checkOut,'isCheckOut':employee.isCheckOut},
     );
-    Future<void> updateCollectionEmployeeReason(
-        CollectionOfAttendanceModel employee, String day) async {
-      _fireStore
-          .collection("employee")
-          .doc("attendance")
-          .collection(day)
-          .doc(employee.email)
-          .update(
-        {'reason': employee.reason},
-      );
-    }
+
+  }
+  Future<void> updateCollectionEmployeeReason(
+      String reason,String email, String day) async {
+    _fireStore
+        .collection("employee")
+        .doc("attendance")
+        .collection(day)
+        .doc(email)
+        .update(
+      {'reason': reason},
+    );
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> oneDayEmployeeAttendance(

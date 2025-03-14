@@ -6,6 +6,7 @@ class DateTimeProvider extends ChangeNotifier {
   String? _formattedTime;
   String? _onlyTime;
 
+
   DateTimeProvider() {
     _updateTime();
   }
@@ -35,4 +36,7 @@ class DateTimeProvider extends ChangeNotifier {
     DateTime istTime = DateTime.now().toUtc().add(const Duration(hours: 5, minutes: 30));
     return DateFormat('hh:mm a').format(istTime); // Format: 10:30 PM
   }
+
+
+
 }

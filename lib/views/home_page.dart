@@ -109,6 +109,8 @@
 //     );
 //   }
 // }\
+import 'dart:developer';
+
 import 'package:emp_management/controller/emp_Controller.dart';
 import 'package:emp_management/modal/collection_of_attendance.dart';
 import 'package:emp_management/services/collection_of_attendance.dart';
@@ -155,9 +157,12 @@ class CheckInOutScreen extends StatelessWidget {
                     ? null
                     : () async {
                   await empProvider.getCurrentLocation();
+                  log("time================================${dateproviderT.onlyTime}");
+                  empProvider.setCheckInStatus(true);
                   CollectionOfAttendanceModel employee =
                   CollectionOfAttendanceModel(
                     isCheckIn:empProvider.isCheckedIn,
+                    isCheckOut: !empProvider.isCheckedOut,
                     email: empProvider.user!.email!,
                     checkIn:((empProvider.empAddress !=
                         "police station, Surat, Gujarat, India"))? "":((empProvider.empAddress !=
@@ -192,8 +197,10 @@ class CheckInOutScreen extends StatelessWidget {
                 onPressed: !empProvider.isCheckedIn
                     ? null
                     : () async {
+
                   CollectionOfAttendanceModel employee =
                   CollectionOfAttendanceModel(
+                    isCheckOut: empProvider.isCheckedOut,
                     isCheckIn:empProvider.isCheckedIn,
                     email: empProvider.user!.email!,
                     checkOut:((empProvider.empAddress !=
@@ -215,7 +222,7 @@ class CheckInOutScreen extends StatelessWidget {
                     DateTime.now().day.toString(),
                   );
 
-                  empProvider.setCheckInStatus(false);
+
                   Navigator.of(context).pushReplacementNamed('/location');
                 },
                 child: buildButton(

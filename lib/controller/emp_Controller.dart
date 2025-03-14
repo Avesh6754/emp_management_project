@@ -14,6 +14,7 @@ import '../services/add_fire_store_attendwnce.dart';
 class EmpController extends ChangeNotifier {
   String? empName, empEmail, empCheckIn, empCheckOut, empStatus, empAddress;
   double? empLatitude, empLongitude;
+  String? emp_Reason;
   final User? user = AuthServices.authServices.currentUser();
 
   /// todo : list of one day emp data
@@ -21,10 +22,12 @@ class EmpController extends ChangeNotifier {
   List<CollectionOfAttendanceModel> oneDateEmpList = [];
 
   bool isCheckedIn = false;
+  bool isCheckedOut = false;
   String lastCheckInDate = "";
 
   void setCheckInStatus(bool status) {
     isCheckedIn = status;
+    isCheckedOut = status;
     lastCheckInDate = DateTime.now().toIso8601String(); // Store current date
     notifyListeners();
   }
@@ -55,6 +58,12 @@ class EmpController extends ChangeNotifier {
       print("Error: $e");
     }
   }
+  void reasonMethod(String value)
+  {
+    emp_Reason=value;
+    notifyListeners();
+  }
+
 
   /// Determine the user's location
   Future<Position> _determinePosition() async {

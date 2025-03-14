@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../controller/emp_Controller.dart';
+import '../../services/collection_of_attendance.dart';
 import 'drawer_udf.dart';
 
 class OfficeLocationScreen extends StatefulWidget {
@@ -18,24 +18,30 @@ class OfficeLocationScreen extends StatefulWidget {
 }
 
 class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
-  String? _selectedReason;
+  String? selectedReason;
+  bool checkOut = false;
+
   @override
   void initState() {
     super.initState();
 
     /// Check the time when the screen loads
     Future.delayed(Duration.zero, () {
-      _checkAndShowDialog();
+
+      ((context.watch<EmpController>().emp_Reason==null))?_checkAndShowDialog():null;
     });
   }
+
   void _checkAndShowDialog() {
     DateTime now = DateTime.now();
-    DateTime nineThirtyAM = DateTime(now.year, now.month, now.day, 9, 30); // 9:30 AM
+    DateTime nineThirtyAM =
+        DateTime(now.year, now.month, now.day, 9, 30); // 9:30 AM
 
     if (now.isAfter(nineThirtyAM)) {
-      _showLateDialog();
+      _showLateDialog(); // Show the late dialog if checked in but not checked out
     }
   }
+
   Widget build(BuildContext context) {
     var empProviderTrue = Provider.of<EmpController>(context, listen: true);
     var empProviderFalse = Provider.of<EmpController>(context, listen: false);
@@ -45,7 +51,7 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
         backgroundColor: greenColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed('/home');
           },
           icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
@@ -160,36 +166,38 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
             // ),
 
             SizedBox(height: 20.h),
+            Spacer(),
 
             /// Office Range Note
             ((empProviderTrue.empAddress !=
                     "police station, Surat, Gujarat, India"))
-                ?Column(
-              children: [
-                Text(
-                  "Note: Please go inside Office range then ",
-                  style: GoogleFonts.roboto(
-                    textStyle: TextStyle(fontSize: 16.sp),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: ()  {
-                     empProviderFalse.getCurrentLocation();
-                    setState(() {}); // Reloads the screen
-                  },
-                  child: Text(
-                    "Try Again!",
-                    style: GoogleFonts.roboto(
-                      fontSize: 16.sp,
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline, // Make it look clickable
-                    ),
-                  ),
-                ),
-              ],
-            )
-          : ((empProviderTrue.empAddress !=
+                ? Column(
+                    children: [
+                      Text(
+                        "Note: Please go inside Office range then ",
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(fontSize: 16.sp),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          empProviderFalse.getCurrentLocation();
+                          setState(() {}); // Reloads the screen
+                        },
+                        child: Text(
+                          "Try Again!",
+                          style: GoogleFonts.roboto(
+                            fontSize: 16.sp,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration
+                                .underline, // Make it look clickable
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : ((empProviderTrue.empAddress !=
                         "Uma plaza Star Circle, Surat, Gujarat, India"))
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -203,7 +211,12 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                               ),
                               SizedBox(height: 5.h),
                               Text(
-                              empProviderTrue.empCheckIn!.isNotEmpty?empProviderTrue.empCheckIn!:"--:--",
+                                context.watch<EmpController>().empCheckIn ==
+                                        null
+                                    ? "--:--"
+                                    : context
+                                        .watch<EmpController>()
+                                        .empCheckIn!,
                                 style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
                                     fontSize: 16.sp,
@@ -229,7 +242,12 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                               ),
                               SizedBox(height: 5.h),
                               Text(
-                                empProviderTrue.empCheckOut!.isNotEmpty?empProviderTrue.empCheckOut!:"--:--",
+                                context.watch<EmpController>().empCheckOut ==
+                                        null
+                                    ? "--:--"
+                                    : context
+                                        .watch<EmpController>()
+                                        .empCheckOut!,
                                 style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
                                     fontSize: 16.sp,
@@ -275,40 +293,39 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                         ],
                       )
                     : Column(
-              children: [
-                Text(
-                  "Note: Please go inside Office range then ",
-                  style: GoogleFonts.roboto(
-                    textStyle: TextStyle(fontSize: 16.sp),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: ()  {
-                    empProviderFalse.getCurrentLocation();
-                    setState(() {
+                        children: [
+                          Text(
+                            "Note: Please go inside Office range then ",
+                            style: GoogleFonts.roboto(
+                              textStyle: TextStyle(fontSize: 16.sp),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              empProviderFalse.getCurrentLocation();
+                              setState(() {}); // Reloads the screen
+                            },
+                            child: Text(
+                              "Try Again!",
+                              style: GoogleFonts.roboto(
+                                fontSize: 16.sp,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration
+                                    .underline, // Make it look clickable
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
 
-                    }); // Reloads the screen
-                  },
-                  child: Text(
-                    "Try Again!",
-                    style: GoogleFonts.roboto(
-                      fontSize: 16.sp,
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline, // Make it look clickable
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-
-            SizedBox(height: 20.h),
+            SizedBox(height: 40.h),
           ],
         ),
       ),
     );
   }
+
   void _showLateDialog() {
     showDialog(
       context: context,
@@ -330,23 +347,67 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
               SizedBox(height: 10.h),
               Icon(Icons.warning, color: Colors.red, size: 40.sp),
               SizedBox(height: 10.h),
-               Text("Select a reason"),
-              _buildRadioButton("Traffic Jam", setState),
-              _buildRadioButton("Health Issue", setState),
-              _buildRadioButton("Others", setState),
+              Text("Select a reason"),
+              RadioListTile(
+                title: Text("Traffic Jam"),
+                value: "Traffic Jam",
+                groupValue: context.watch<EmpController>().emp_Reason,
+                activeColor: Colors.green,
+                onChanged: (value) {
+                  context.read<EmpController>().reasonMethod(value!);
+                },
+              ),
+              RadioListTile(
+                title: Text("Health Issue"),
+                value: "Health Issue",
+                groupValue: context.watch<EmpController>().emp_Reason,
+                activeColor: Colors.green,
+                onChanged: (value) {
+                  context.read<EmpController>().reasonMethod(value!);
+                },
+              ),
+              RadioListTile(
+                title: Text("Others"),
+                value: "Others",
+                groupValue: context.watch<EmpController>().emp_Reason,
+                activeColor: Colors.green,
+                onChanged: (value) {
+                  context.read<EmpController>().reasonMethod(value!);
+                },
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  if (_selectedReason != null) {
-                    Navigator.pop(context);
-                    print("Selected Reason: $_selectedReason");
-                  } else {
+                onPressed: () async {
+                  // Debugging: Print current values
+                  print("Selected Reason: ${context.read<EmpController>().emp_Reason}");
+                  print("User Email: ${context.read<EmpController>().user?.email}");
+
+                  if (context.read<EmpController>().emp_Reason == null ||
+                      context.read<EmpController>().user?.email == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Please select a reason")),
+                      SnackBar(content: Text("Please select a reason before submitting!")),
+                    );
+                    return;
+                  }
+
+                  try {
+                    await CollectionOfAttendance.collectionAttendance.updateCollectionEmployeeReason(
+                      context.read<EmpController>().emp_Reason!,
+                      context.read<EmpController>().user!.email!,
+                      DateTime.now().day.toString(),
+                    );
+
+                    print("Attendance reason updated successfully!");
+                    Navigator.pop(context);
+                  } catch (e) {
+                    print("Error updating reason: $e");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Failed to update reason. Try again!")),
                     );
                   }
                 },
-                child: const Text("Submit"),
+
+                child: Text("Submit"),
               ),
             ],
           ),
@@ -354,19 +415,4 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
       },
     );
   }
-
-  Widget _buildRadioButton(String title, StateSetter setState) {
-    return RadioListTile(
-      title: Text(title),
-      value: title,
-      groupValue: _selectedReason,
-      activeColor: Colors.green,
-      onChanged: (value) {
-        setState(() {
-          _selectedReason = value.toString();
-        });
-      },
-    );
-  }
 }
-

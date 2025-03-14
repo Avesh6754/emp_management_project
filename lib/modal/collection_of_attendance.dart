@@ -23,10 +23,12 @@ class CollectionOfAttendanceModel {
       reason,
       attendanceStatus;
   bool isCheckIn;
+  bool isCheckOut;
 
   CollectionOfAttendanceModel({
     required this.email,
     required this.isCheckIn,
+    required this.isCheckOut,
     required this.checkOut,
     required this.checkIn,
     required this.date,
@@ -39,6 +41,7 @@ class CollectionOfAttendanceModel {
       CollectionOfAttendanceModel(
         email: m1['email'],
         isCheckIn: m1['isCheckIn']?? false,
+        isCheckOut: m1['isCheckOut']?? false,
         checkOut: m1['checkOut'],
         checkIn: m1['checkIn'],
         date: m1['date'],
@@ -52,6 +55,8 @@ class CollectionOfAttendanceModel {
       'email': model.email,
       'date': model.date,
       'isCheckIn':model.isCheckIn,
+      'isCheckOut':model.isCheckOut,
+
       'checkIn': model.checkIn,
       'checkOut': model.checkOut,
       'attendanceTime': model.attendanceTime,

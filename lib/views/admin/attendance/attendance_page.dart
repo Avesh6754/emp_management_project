@@ -254,7 +254,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                       .oneDateEmpList[index].checkIn!.isEmpty)?"00:00":emp_provider_true
                                       .oneDateEmpList[index].checkIn!,
                                   style: GoogleFonts.roboto(
-                                      fontSize: 16.sp,
+                                      fontSize: 13.sp,
                                       fontWeight: FontWeight.w400,
                                       color: (emp_provider_true
                                           .oneDateEmpList[index].checkIn!.isEmpty)?Colors.red:Colors.black
@@ -264,13 +264,14 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
                                 /// todo: check out date ne formet kar va nu che ...................
                                 SizedBox(
-                                  width: 55.w,
+                                  width: 70.w,
+
                                   child: Text(
                                     (emp_provider_true
                                         .oneDateEmpList[index].checkOut!.isEmpty)?"00:00":emp_provider_true
                                         .oneDateEmpList[index].checkOut!,
                                     style: GoogleFonts.roboto(
-                                      fontSize: 16.sp,
+                                      fontSize: 13.sp,
                                       fontWeight: FontWeight.w400,
                                       color: (emp_provider_true
                                           .oneDateEmpList[index].checkOut!.isEmpty)?Colors.red:Colors.black
