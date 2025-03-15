@@ -158,6 +158,7 @@ class CheckInOutScreen extends StatelessWidget {
                     : () async {
                   await empProvider.getCurrentLocation();
                   log("time================================${dateproviderT.onlyTime}");
+                  dateproviderF.checkTimeOut();
                   empProvider.setCheckInStatus(true);
                   CollectionOfAttendanceModel employee =
                   CollectionOfAttendanceModel(
