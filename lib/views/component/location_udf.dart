@@ -19,18 +19,23 @@ class OfficeLocationScreen extends StatefulWidget {
 }
 
 class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
-
   @override
   void initState() {
     super.initState();
 
     /// Check the time when the screen loads
     Future.delayed(Duration.zero, () {
-      if (context.read<DateTimeProvider>().checkTimeIn() == "Late" && context.read<EmpController>().emp_Reason==null) {
+      if (context.read<DateTimeProvider>().checkTimeIn() == "Late" &&
+          context.read<EmpController>().emp_Reason == null &&
+          (context.read<EmpController>().empAddress ==
+                  "police station, Surat, Gujarat, India" ||
+              context.read<EmpController>().empAddress ==
+                  "Uma plaza Star Circle, Karadva, Gujarat, India")) {
         _checkAndShowDialog();
       }
     });
   }
+
 
   void _checkAndShowDialog() {
     DateTime now = DateTime.now();
@@ -133,7 +138,7 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
 
             /// Map Placeholder
             Expanded(
-              flex:6,
+              flex: 4,
               child: Container(
                 height: 200.h,
                 width: double.infinity,
@@ -189,10 +194,9 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                           textStyle: TextStyle(fontSize: 16.sp),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          empProviderFalse.getCurrentLocation();
-                          setState(() {}); // Reloads the screen
+                      TextButton(
+                        onPressed: () async {
+                          await Provider.of<EmpController>(context, listen: false).getCurrentLocation();
                         },
                         child: Text(
                           "Try Again!",
@@ -200,8 +204,7 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                             fontSize: 16.sp,
                             color: Colors.red,
                             fontWeight: FontWeight.bold,
-                            decoration: TextDecoration
-                                .underline, // Make it look clickable
+                            decoration: TextDecoration.underline,
                           ),
                         ),
                       ),
@@ -304,16 +307,9 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                       )
                     : Column(
                         children: [
-                          Text(
-                            "Note: Please go inside Office range then ",
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(fontSize: 16.sp),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              empProviderFalse.getCurrentLocation();
-                              setState(() {}); // Reloads the screen
+                          TextButton(
+                            onPressed: () async {
+                              await Provider.of<EmpController>(context, listen: false).getCurrentLocation();
                             },
                             child: Text(
                               "Try Again!",
@@ -321,8 +317,7 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                                 fontSize: 16.sp,
                                 color: Colors.red,
                                 fontWeight: FontWeight.bold,
-                                decoration: TextDecoration
-                                    .underline, // Make it look clickable
+                                decoration: TextDecoration.underline,
                               ),
                             ),
                           ),
@@ -384,14 +379,14 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                   activeColor: Colors.green,
                   onChanged: (value) {
                     context.read<EmpController>().reasonMethod(value!);
-            
                   },
                 ),
                 if (context.watch<EmpController>().isOtherSelected)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: TextField(
-                      controller: context.watch<EmpController>().otherReasonController,
+                      controller:
+                          context.watch<EmpController>().otherReasonController,
                       decoration: InputDecoration(
                         labelText: "Enter Other Reason",
                         border: OutlineInputBorder(),
@@ -399,14 +394,15 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                     ),
                   ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.green),
                   onPressed: () async {
                     // Debugging: Print current values
                     print(
                         "Selected Reason: ${context.read<EmpController>().emp_Reason}");
                     print(
                         "User Email: ${context.read<EmpController>().user?.email}");
-            
+
                     if (context.read<EmpController>().emp_Reason == null ||
                         context.read<EmpController>().user?.email == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -416,7 +412,7 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                       );
                       return;
                     }
-            
+
                     try {
                       await CollectionOfAttendance.collectionAttendance
                           .updateCollectionEmployeeReason(
@@ -424,14 +420,15 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                         context.read<EmpController>().user!.email!,
                         DateTime.now().day.toString(),
                       );
-            
+
                       print("Attendance reason updated successfully!");
                       Navigator.pop(context);
                     } catch (e) {
                       print("Error updating reason: $e");
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                            content: Text("Failed to update reason. Try again!")),
+                            content:
+                                Text("Failed to update reason. Try again!")),
                       );
                     }
                   },

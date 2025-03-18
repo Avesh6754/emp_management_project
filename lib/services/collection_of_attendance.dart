@@ -85,6 +85,15 @@ class CollectionOfAttendance {
     );
   }
 
+  void updateAddress(String address,String email, String day,String checkInTime )
+  {
+    _fireStore.collection("employee").doc('attendance').collection(day).doc(email).update({'address':address,'checkIn':checkInTime});
+  }
+  void updateAddressCheckout(String address,String email, String day,String checkInTime )
+  {
+    _fireStore.collection("employee").doc('attendance').collection(day).doc(email).update({'address':address,'checkOut':checkInTime});
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> oneDayEmployeeAttendance(
       {required String day}) {
     return _fireStore
@@ -112,6 +121,8 @@ class CollectionOfAttendance {
         .doc(add.email)
         .update(AddDetails.toMap(add));
   }
+
+
 
   Stream<QuerySnapshot<Map<String, dynamic>>> allEmployeeData(
       {required String date}) {

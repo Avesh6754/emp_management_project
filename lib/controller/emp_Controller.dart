@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:emp_management/services/auth_services.dart';
+import 'package:emp_management/services/collection_of_attendance.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
@@ -23,23 +24,31 @@ class EmpController extends ChangeNotifier {
 
   bool isCheckedIn = false;
   bool isCheckedOut = false;
-  String lastCheckInDate = "";
+  int lastCheckInDate = 0;
   TextEditingController otherReasonController = TextEditingController();
   bool isOtherSelected = false;
 
-  void setCheckInStatus(bool status) {
-    isCheckedIn = status;
-    isCheckedOut = status;
-    lastCheckInDate = DateTime.now().toIso8601String(); // Store current date
+  void updateCheckIn(String checkInTime) {
+    empCheckIn = checkInTime;
     notifyListeners();
   }
 
-  void resetCheckInIfNewDay() {
-    String today = DateTime.now().toIso8601String().split("T")[0];
-    if (lastCheckInDate.split("T")[0] != today) {
-      isCheckedIn = false; // Reset check-in for the new day
-      notifyListeners();
-    }
+  void updateCheckOut(String checkOutTime) {
+    empCheckOut = checkOutTime;
+    notifyListeners();
+  }
+
+  void setCheckInStatus(bool status,int currentDate) {
+    isCheckedIn = status;
+
+    lastCheckInDate = currentDate; // Store current date
+    notifyListeners();
+  }
+  void setCheckOutStatus(bool status,) {
+
+    isCheckedOut = status;
+     // Store current date
+    notifyListeners();
   }
 
 
@@ -54,7 +63,7 @@ class EmpController extends ChangeNotifier {
       empAddress =
           await _getAddressFromCoordinates(empLatitude!, empLongitude!);
       log("===================$empAddress");
-
+      (isCheckedIn && !isCheckedOut)? CollectionOfAttendance.collectionAttendance.updateAddress(empAddress!, user!.email!, lastCheckInDate.toString(),empCheckIn! ):CollectionOfAttendance.collectionAttendance.updateAddressCheckout(empAddress!, user!.email!, lastCheckInDate.toString(),empCheckOut! );
       notifyListeners();
     } catch (e) {
       print("Error: $e");
