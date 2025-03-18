@@ -6,14 +6,15 @@ class DateTimeProvider extends ChangeNotifier {
   String? _formattedTime;
   String? _onlyTime;
 
-  String firstTime ='02:15 PM',lastTime='02:30 PM';
-
+  String firstTime = '09:30 AM', lastTime = '09:45 AM';
+  String checkOutTime = '06:00 PM', checkOutLast = '07:00 PM';
 
   DateTimeProvider() {
     _updateTime();
   }
 
   String? get formattedTime => _formattedTime;
+
   String? get onlyTime => _onlyTime;
 
   void _updateTime() {
@@ -29,9 +30,11 @@ class DateTimeProvider extends ChangeNotifier {
 
   /// Returns time + date (formatted)
   String _getCurrentISTFormatted() {
-    DateTime istTime = DateTime.now().toUtc().add(const Duration(hours: 5, minutes: 30));
+    DateTime istTime =
+        DateTime.now().toUtc().add(const Duration(hours: 5, minutes: 30));
     return DateFormat('        hh:mm a\nEEEE, MMMM d').format(istTime);
   }
+
   bool isTimeBetween(String checkTime, String firstTime, String lastTime) {
     final DateFormat format = DateFormat('hh:mm a');
 
@@ -39,27 +42,56 @@ class DateTimeProvider extends ChangeNotifier {
     DateTime start = format.parse(firstTime);
     DateTime end = format.parse(lastTime);
 
-    return check.isAfter(start) && check.isBefore(end);
+    return (check.isAtSameMomentAs(start) || check.isAfter(start)) && check.isBefore(end);
+  }
+
+  bool isTimeEarly(String checkTime, String firstTime,) {
+    final DateFormat format = DateFormat('hh:mm a');
+
+    DateTime check = format.parse(checkTime);
+    DateTime start = format.parse(firstTime);
+    DateTime end = format.parse(lastTime);
+
+    return check.isBefore(start,);
   }
 
   /// Returns only time (formatted)
   String _getCurrentISTTime() {
-    DateTime istTime = DateTime.now().toUtc().add(const Duration(hours: 5, minutes: 30));
+    DateTime istTime =
+        DateTime.now().toUtc().add(const Duration(hours: 5, minutes: 30));
     return DateFormat('hh:mm a').format(istTime); // Format: 10:30 PM
   }
 
-
-
-  void checkTimeOut()
-  {
+  String checkTimeIn() {
     debugPrint('day Namd :::::$onlyTime');
 
     if (isTimeBetween(onlyTime!, firstTime, lastTime)) {
-      print('Checkout time is within the range.');
+      return 'On Time';
+    } else if (isTimeEarly(onlyTime!, firstTime,)) {
+      return 'Early';
     } else {
-      print('Checkout time is outside the range.');
+      return 'Late';
     }
   }
+  // String checkReason() {
+  //   debugPrint('day Namd :::::$onlyTime');
+  //
+  //   if (isTimeBetween(onlyTime!, firstTime, lastTime)) {
+  //     return 'On Time';
+  //   } else {
+  //     return 'Late';
+  //   }
+  // }
 
+  String checkTimeOut() {
+    debugPrint('day Namd :::::$onlyTime');
 
+    if (isTimeBetween(onlyTime!, checkOutTime, checkOutTime)) {
+      return 'On Time';
+    } else if (isTimeEarly(onlyTime!, checkOutTime,)) {
+      return 'Early';
+    } else {
+      return 'Late';
+    }
+  }
 }

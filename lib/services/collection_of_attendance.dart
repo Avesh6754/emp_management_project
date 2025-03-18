@@ -61,14 +61,15 @@ class CollectionOfAttendance {
   }
 
   Future<void> updateCollectionEmployee(
-      CollectionOfAttendanceModel employee, String day) async {
+      CollectionOfAttendanceModel employee, String day,String checkoutStatus) async {
     _fireStore
         .collection("employee")
         .doc("attendance")
         .collection(day)
         .doc(employee.email)
         .update(
-      {'checkOut': employee.checkOut,'isCheckOut':employee.isCheckOut},
+      {'checkOut': employee.checkOut,'isCheckOut':employee.isCheckOut,'attendenceCheckouTime':employee.attendenceCheckouTime},
+
     );
 
   }

@@ -158,24 +158,25 @@ class CheckInOutScreen extends StatelessWidget {
                     : () async {
                   await empProvider.getCurrentLocation();
                   log("time================================${dateproviderT.onlyTime}");
-                  dateproviderF.checkTimeOut();
+                  dateproviderF.checkTimeIn();
                   empProvider.setCheckInStatus(true);
                   CollectionOfAttendanceModel employee =
                   CollectionOfAttendanceModel(
+                    attendenceCheckouTime: "",
                     isCheckIn:empProvider.isCheckedIn,
                     isCheckOut: !empProvider.isCheckedOut,
                     email: empProvider.user!.email!,
                     checkIn:((empProvider.empAddress !=
                         "police station, Surat, Gujarat, India"))? "":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Surat, Gujarat, India"))
+                        "Uma plaza Star Circle, Karadva, Gujarat, India"))
                         ?dateproviderT.onlyTime:"" ,
                     checkOut: "",
                     date: DateTime.now().day.toString(),
-                    attendanceTime: "",
+                    attendanceTime: dateproviderF.checkTimeIn(),
                     reason: "",
                     attendanceStatus:  ((empProvider.empAddress !=
                         "police station, Surat, Gujarat, India"))? "Absent":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Surat, Gujarat, India"))?"Present":"Absent",
+                        "Uma plaza Star Circle, Karadva, Gujarat, India"))?"Present":"Absent",
                   );
 
                   await CollectionOfAttendance.collectionAttendance
@@ -201,26 +202,28 @@ class CheckInOutScreen extends StatelessWidget {
 
                   CollectionOfAttendanceModel employee =
                   CollectionOfAttendanceModel(
+                    attendenceCheckouTime:dateproviderF.checkTimeOut(),
                     isCheckOut: empProvider.isCheckedOut,
                     isCheckIn:empProvider.isCheckedIn,
                     email: empProvider.user!.email!,
                     checkOut:((empProvider.empAddress !=
                         "police station, Surat, Gujarat, India"))? "":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Surat, Gujarat, India"))
+                        "Uma plaza Star Circle, Karadva, Gujarat, India"))
                         ?dateproviderT.onlyTime:"" ,
                     checkIn: "",
                     date: DateTime.now().day.toString(),
-                    attendanceTime: "",
+                    attendanceTime: '',
                     reason: "",
                     attendanceStatus: ((empProvider.empAddress !=
                         "police station, Surat, Gujarat, India"))? "Absent":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Surat, Gujarat, India"))?"Present":"Absent",
+                        "Uma plaza Star Circle, Karadva, Gujarat, India"))?"Present":"Absent",
                   );
 
                   await CollectionOfAttendance.collectionAttendance
                       .updateCollectionEmployee(
                     employee,
                     DateTime.now().day.toString(),
+                      dateproviderF.checkTimeOut()
                   );
 
 

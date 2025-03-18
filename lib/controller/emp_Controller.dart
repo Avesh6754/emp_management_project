@@ -24,6 +24,8 @@ class EmpController extends ChangeNotifier {
   bool isCheckedIn = false;
   bool isCheckedOut = false;
   String lastCheckInDate = "";
+  TextEditingController otherReasonController = TextEditingController();
+  bool isOtherSelected = false;
 
   void setCheckInStatus(bool status) {
     isCheckedIn = status;
@@ -58,9 +60,11 @@ class EmpController extends ChangeNotifier {
       print("Error: $e");
     }
   }
-  void reasonMethod(String value)
-  {
-    emp_Reason=value;
+
+
+  void reasonMethod(String value) {
+    emp_Reason = value;
+    isOtherSelected = (value == "Others");
     notifyListeners();
   }
 
