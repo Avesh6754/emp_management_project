@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:emp_management/controller/emp_Controller.dart';
+import 'package:emp_management/services/collection_of_attendance.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 var time = 0;
 
@@ -28,6 +32,7 @@ class _SplashPageState extends State<SplashPage> {
             setState(() {
               time = timer.tick;
               Navigator.of(context).pushReplacementNamed('/choose');
+              log('${CollectionOfAttendance.collectionAttendance.fetchAttendanceData(context.read<EmpController>().user!.email!)}');
             });
           }
         });
@@ -46,6 +51,7 @@ class _SplashPageState extends State<SplashPage> {
       backgroundColor: whiteColor,
       body: Column(
         children: [
+
           Padding(
             padding:  EdgeInsets.only(top: 200.h, left:25.w),
             child: Container(

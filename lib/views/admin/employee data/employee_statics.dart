@@ -1,14 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emp_management/services/collection_of_attendance.dart';
 import 'package:emp_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
+
+import '../../../controller/emp_Controller.dart';
 
 class EmployeeStatisticsScreen extends StatelessWidget {
-  const EmployeeStatisticsScreen({super.key});
+  EmployeeStatisticsScreen({super.key, required this.email});
+
+  String email = '';
 
   @override
   Widget build(BuildContext context) {
+    var emp_provider_true = Provider.of<EmpController>(context, listen: true);
+    var emp_provider_false = Provider.of<EmpController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: greenColor,
@@ -19,46 +28,45 @@ class EmployeeStatisticsScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(130.h),
-          child: Column(
-            spacing: 5.h,
-            children: [
-              Container(
-                height: 75.h,
-                width: 75.w,
-                decoration: BoxDecoration(
-                  color: Color(0xff5C8956),
-                  shape: BoxShape.circle,
+            preferredSize: Size.fromHeight(130.h),
+            child: Column(
+              spacing: 5.h,
+              children: [
+                Container(
+                  height: 75.h,
+                  width: 75.w,
+                  decoration: BoxDecoration(
+                    color: Color(0xff5C8956),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.person_outline_rounded,
+                    size: 40.sp,
+                    color: Colors.white,
+                  ),
                 ),
-                child: Icon(
-                  Icons.person_outline_rounded,
-                  size: 40.sp,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "Employee ID : 123456",
-                style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 0.5.sp,
-                      fontSize: 18.sp),
-                ),
-              ),
-              Text(
-                "Faius Mojumder Nahin",
-                style: GoogleFonts.roboto(
+                Text(
+                  "${emp_provider_true.allEmployeeData[emp_provider_true.selectedIndex].email}",
+                  style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 0.5.sp,
-                  fontSize: 20.sp,
-                )),
-              ),
-              SizedBox(height: 5.h),
-            ],
-          ),
-        ),
+                        color: Colors.white,
+                        letterSpacing: 0.5.sp,
+                        fontSize: 18.sp),
+                  ),
+                ),
+                Text(
+                  "${emp_provider_true.allEmployeeData[emp_provider_true.selectedIndex].name}",
+                  style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.5.sp,
+                    fontSize: 20.sp,
+                  )),
+                ),
+                SizedBox(height: 5.h),
+              ],
+            )),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0.r),
@@ -69,9 +77,10 @@ class EmployeeStatisticsScreen extends StatelessWidget {
               "Personal Statistics",
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(
-                    fontSize: 20.sp,
-                    letterSpacing: 0.5.sp,
-                    color: Colors.grey.shade800),
+                  fontSize: 20.sp,
+                  letterSpacing: 0.5.sp,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ),
             SizedBox(height: 8.h),
@@ -89,20 +98,17 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                     "Last 7 days",
                     "Last 14 days",
                     "Last 30 days",
-                    "This months",
-                    "Last months",
-                  ]
-                      .map(
-                        (String value) => DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        ),
-                      )
-                      .toList(),
+                    "This month",
+                    "Last month",
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                   onChanged: (value) {},
                 ),
                 IconButton(
-                  ///todo : logic :-)
                   onPressed: () {
                     Navigator.of(context).pushNamed('/calander');
                   },
@@ -114,6 +120,7 @@ class EmployeeStatisticsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+
                 buildCircularIndicator("Late", 0.1, Colors.red),
                 buildCircularIndicator("Absent", 0.05, Colors.orange),
                 buildCircularIndicator("Leaves", 0.05, Colors.green),
@@ -123,11 +130,13 @@ class EmployeeStatisticsScreen extends StatelessWidget {
             Text(
               "Leave Requests",
               style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade800,
-                      letterSpacing: 0.5.sp)),
+                textStyle: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade800,
+                  letterSpacing: 0.5.sp,
+                ),
+              ),
             ),
             SizedBox(height: 8.h),
             DropdownButtonFormField(
@@ -145,17 +154,50 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                       letterSpacing: 0.5.sp),
                 ),
               ),
-              items: [],
+              items: [], // Fetch leave requests dynamically if needed
               onChanged: (value) {},
             ),
             SizedBox(height: 16.h),
-            buildInfoTile("Total Presents", "12 days"),
-            buildInfoTile("Late", "2 days"),
-            buildInfoTile("Early Leaves", "2 days"),
-            buildInfoTile("Absent", "1 day"),
-            buildInfoTile("Leaves", "1 day"),
+
+            /// Fetch Attendance Data and Display Dynamically
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: CollectionOfAttendance.collectionAttendance.oneDayEmployeeAttendanceData(day: "2025-03-19"), // Pass selected date
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No attendance data available",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+                final attendanceData = snapshot.data!.docs;
+
+                return Expanded(  // Wrap with Expanded to prevent RenderFlex errors
+                  child: ListView(
+                    children: attendanceData.map((doc) {
+                      final data = doc.data();
+                      return buildInfoTile(data["status"], "${data["days"]} days");
+                    }).toList(),
+                  ),
+                );
+              },
+            ),
+
           ],
-        ),
+        )
+
       ),
     );
   }
@@ -216,7 +258,6 @@ class EmployeeStatisticsScreen extends StatelessWidget {
                       fontSize: 18.sp,
                       color: Colors.grey,
                       letterSpacing: 0.2.sp)),
-
             ),
           ),
         ],

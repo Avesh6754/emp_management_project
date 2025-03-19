@@ -67,7 +67,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 .toList();
 
             if (snapshot.hasData) {
-              return Column(
+              return (snapshot.data!=null)?Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.all(10.0.r),
@@ -288,7 +288,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     ),
                   ),
                 ],
-              );
+              ):Center(child: CircularProgressIndicator(),);
             } else if (snapshot.hasError) {
               return Icon(Icons.error_outline);
             } else if (snapshot.connectionState == ConnectionState.waiting) {

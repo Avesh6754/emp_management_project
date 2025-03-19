@@ -50,10 +50,10 @@ class EmployeeListScreen extends StatelessWidget {
         ),
       ),
       drawer: admin_Drawer_Method(context),
-      body: StreamBuilder(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: CollectionOfAttendance.collectionAttendance.allEmployeeData(
             date:
-                "${DateTime.now().day} : ${DateTime.now().month} : ${DateTime.now().year}"),
+                "${12} : ${3} : ${2025}"),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             List<QueryDocumentSnapshot<Map<String, dynamic>>> data =
@@ -132,8 +132,9 @@ class EmployeeListScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
+                          emp_provider_false.updateIndex(index);
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => EmployeeStatisticsScreen(),
+                            builder: (context) => EmployeeStatisticsScreen(email:emp_provider_true.allEmployeeData[index].email ,),
                           ));
                         },
                         child: Padding(

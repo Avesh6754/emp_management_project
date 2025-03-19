@@ -54,6 +54,14 @@ class DateTimeProvider extends ChangeNotifier {
 
     return check.isBefore(start,);
   }
+  bool isTimeLate(String checkTime, String lastTime,) {
+    final DateFormat format = DateFormat('hh:mm a');
+
+    DateTime check = format.parse(checkTime);
+    DateTime end = format.parse(lastTime);
+
+    return check.isAfter(end);
+  }
 
   /// Returns only time (formatted)
   String _getCurrentISTTime() {
@@ -69,29 +77,22 @@ class DateTimeProvider extends ChangeNotifier {
       return 'On Time';
     } else if (isTimeEarly(onlyTime!, firstTime,)) {
       return 'Early';
-    } else {
+    } else if(isTimeLate(onlyTime!, lastTime)) {
       return 'Late';
     }
+    return 'Absent';
   }
-  // String checkReason() {
-  //   debugPrint('day Namd :::::$onlyTime');
-  //
-  //   if (isTimeBetween(onlyTime!, firstTime, lastTime)) {
-  //     return 'On Time';
-  //   } else {
-  //     return 'Late';
-  //   }
-  // }
 
   String checkTimeOut() {
     debugPrint('day Namd :::::$onlyTime');
 
-    if (isTimeBetween(onlyTime!, checkOutTime, checkOutTime)) {
+    if (isTimeBetween(onlyTime!, checkOutTime, checkOutLast)) {
       return 'On Time';
     } else if (isTimeEarly(onlyTime!, checkOutTime,)) {
       return 'Early';
-    } else {
+    } else if (isTimeLate(onlyTime!, checkOutLast)){
       return 'Late';
     }
+    return 'Absent';
   }
 }

@@ -15,7 +15,9 @@ import '../services/add_fire_store_attendwnce.dart';
 class EmpController extends ChangeNotifier {
   String? empName, empEmail, empCheckIn, empCheckOut, empStatus, empAddress;
   double? empLatitude, empLongitude;
+  var total=0;
   String? emp_Reason;
+  int selectedIndex=0;
   final User? user = AuthServices.authServices.currentUser();
 
   /// todo : list of one day emp data
@@ -28,8 +30,25 @@ class EmpController extends ChangeNotifier {
   TextEditingController otherReasonController = TextEditingController();
   bool isOtherSelected = false;
 
+
+  void totalWorkTime() {
+    if (empCheckIn != null && empCheckOut != null) {
+      DateTime checkIn = DateTime.parse(empCheckIn!);
+      DateTime checkOut = DateTime.parse(empCheckOut!);
+
+      Duration workDuration = checkOut.difference(checkIn);
+      total = workDuration.inHours; // or use workDuration.inMinutes for minute-level precision
+
+      notifyListeners();
+    }
+  }
+
   void updateCheckIn(String checkInTime) {
     empCheckIn = checkInTime;
+    notifyListeners();
+  }
+  void updateIndex(int index)
+  {selectedIndex=index;
     notifyListeners();
   }
 
@@ -117,4 +136,6 @@ class EmpController extends ChangeNotifier {
     }
     return "Unknown Location";
   }
+
+
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:emp_management/controller/time_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +19,7 @@ class StaticDateTime extends StatelessWidget {
         Text('${dateproviderT.formattedTime}',
             style: GoogleFonts.roboto(
                 textStyle: TextStyle(
-                  fontSize: 35.sp,
+                  fontSize: 32.sp,
                   fontWeight: FontWeight.w600,
                 ))),
         // Text('Wednesday, Feb 17',
@@ -25,6 +27,7 @@ class StaticDateTime extends StatelessWidget {
         //         textStyle: TextStyle(
         //             fontSize: 30.sp,fontWeight: FontWeight.w400))),
         SizedBox(height: 20.h),
+
       ],
     );
   }

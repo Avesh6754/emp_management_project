@@ -143,9 +143,9 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                 height: 200.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  // image: DecorationImage(
-                  //     image: AssetImage("assets/image/map.png"),
-                  //     fit: BoxFit.cover),
+                  image: DecorationImage(
+                      image: AssetImage("assets/image/map.png"),
+                      fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(10.r),
                   color: Colors.grey[300],
                 ),
@@ -286,7 +286,9 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                               ),
                               SizedBox(height: 5.h),
                               Text(
-                                '--:--',
+                                context.watch<EmpController>().empCheckOut ==null
+                                    ? "--:--"
+                                    :'${ empProviderTrue.total} Hrs',
                                 style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
                                     fontSize: 16.sp,

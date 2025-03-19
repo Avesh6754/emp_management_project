@@ -60,21 +60,24 @@ class CollectionOfAttendance {
         );
   }
 
-  Future<void> updateCollectionEmployee(
-      CollectionOfAttendanceModel employee, String day,String checkoutStatus) async {
+  Future<void> updateCollectionEmployee(CollectionOfAttendanceModel employee,
+      String day, String checkoutStatus) async {
     _fireStore
         .collection("employee")
         .doc("attendance")
         .collection(day)
         .doc(employee.email)
         .update(
-      {'checkOut': employee.checkOut,'isCheckOut':employee.isCheckOut,'attendenceCheckouTime':employee.attendenceCheckouTime},
-
+      {
+        'checkOut': employee.checkOut,
+        'isCheckOut': employee.isCheckOut,
+        'attendenceCheckouTime': employee.attendenceCheckouTime
+      },
     );
-
   }
+
   Future<void> updateCollectionEmployeeReason(
-      String reason,String email, String day) async {
+      String reason, String email, String day) async {
     _fireStore
         .collection("employee")
         .doc("attendance")
@@ -85,13 +88,58 @@ class CollectionOfAttendance {
     );
   }
 
-  void updateAddress(String address,String email, String day,String checkInTime )
-  {
-    _fireStore.collection("employee").doc('attendance').collection(day).doc(email).update({'address':address,'checkIn':checkInTime});
+  Future<List<CollectionOfAttendanceModel>> fetchAttendanceData(
+      String email) async {
+    QuerySnapshot snapshot = await _fireStore
+        .collection("employee")
+        .doc(email)
+        .collection("attendance")
+        .get();
+    return snapshot.docs
+        .map((doc) => CollectionOfAttendanceModel.fromMap(
+            doc.data() as Map<String, dynamic>))
+        .toList();
   }
-  void updateAddressCheckout(String address,String email, String day,String checkInTime )
-  {
-    _fireStore.collection("employee").doc('attendance').collection(day).doc(email).update({'address':address,'checkOut':checkInTime});
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> oneDayEmployeeAttendanceData(
+      {required String day}) {
+    return FirebaseFirestore.instance
+        .collection("employee")
+        .doc("attendance")
+        .collection(day)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> progressDataFromFiresbase({
+    required String start,
+    required String end,
+    required String email,
+  }) {
+    return _fireStore
+        .collection("employee")
+        .doc("attendance")
+        .collection(start)
+        .snapshots();
+  }
+
+  void updateAddress(
+      String address, String email, String day, String checkInTime) {
+    _fireStore
+        .collection("employee")
+        .doc('attendance')
+        .collection(day)
+        .doc(email)
+        .update({'address': address, 'checkIn': checkInTime});
+  }
+
+  void updateAddressCheckout(
+      String address, String email, String day, String checkInTime) {
+    _fireStore
+        .collection("employee")
+        .doc('attendance')
+        .collection(day)
+        .doc(email)
+        .update({'address': address, 'checkOut': checkInTime});
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> oneDayEmployeeAttendance(
@@ -121,8 +169,6 @@ class CollectionOfAttendance {
         .doc(add.email)
         .update(AddDetails.toMap(add));
   }
-
-
 
   Stream<QuerySnapshot<Map<String, dynamic>>> allEmployeeData(
       {required String date}) {
