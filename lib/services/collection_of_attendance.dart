@@ -168,6 +168,7 @@ class CollectionOfAttendance {
         .collection(add.date)
         .doc(add.email)
         .update(AddDetails.toMap(add));
+
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> allEmployeeData(
