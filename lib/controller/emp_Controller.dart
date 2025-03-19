@@ -17,6 +17,7 @@ class EmpController extends ChangeNotifier {
   double? empLatitude, empLongitude;
   var total=0;
   String? emp_Reason;
+
   int selectedIndex=0;
   final User? user = AuthServices.authServices.currentUser();
 
@@ -89,6 +90,14 @@ class EmpController extends ChangeNotifier {
     }
   }
 
+  Future<List<CollectionOfAttendanceModel>> fetchAllAttendanceRecord()
+  async {
+
+    List<String> days = ["2025-03-01", "2025-03-02", "2025-03-03"]; // List of days for which attendance is stored
+    List<CollectionOfAttendanceModel> records = await CollectionOfAttendance.collectionAttendance.fetchEmployeeAttendanceRecords("employee@example.com", days);
+    return records;
+  }
+
 
   void reasonMethod(String value) {
     emp_Reason = value;
@@ -96,8 +105,6 @@ class EmpController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  /// Determine the user's location
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;

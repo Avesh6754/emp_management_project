@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:emp_management/controller/emp_Controller.dart';
@@ -19,16 +18,16 @@ class CheckInOutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var empProvider = Provider.of<EmpController>(context);
-    var dateproviderT=Provider.of<DateTimeProvider>(context,listen: true);
-    var dateproviderF=Provider.of<DateTimeProvider>(context,listen: false);
+    var dateproviderT = Provider.of<DateTimeProvider>(context, listen: true);
+    var dateproviderF = Provider.of<DateTimeProvider>(context, listen: false);
     // empProvider.resetCheckInIfNewDay(); //
     // Ensure daily reset
     DateTime now = DateTime.now();
     int currentDay = now.day;
 
     // Check if Check-In was done yesterday
-    bool isNextDayCheckOut = empProvider.lastCheckInDate!=null &&
-        empProvider.lastCheckInDate!= currentDay;
+    bool isNextDayCheckOut = empProvider.lastCheckInDate != null &&
+        empProvider.lastCheckInDate != currentDay;
 
     return Scaffold(
       body: Column(
@@ -53,43 +52,52 @@ class CheckInOutScreen extends StatelessWidget {
                 onPressed: empProvider.isCheckedIn
                     ? null
                     : () async {
-                  await empProvider.getCurrentLocation();
+                        await empProvider.getCurrentLocation();
 
-                  log("time================================${dateproviderT.onlyTime}");
-                  dateproviderF.checkTimeIn();
-                  empProvider.setCheckInStatus(true,currentDay);
-                  CollectionOfAttendanceModel employee =
-                  CollectionOfAttendanceModel(
-                    attendenceCheckouTime: "",
-                    isCheckIn:empProvider.isCheckedIn,
-                    isCheckOut: empProvider.isCheckedOut,
-                    email: empProvider.user!.email!,
-                    checkIn:((empProvider.empAddress !=
-                        "police station, Surat, Gujarat, India"))? "":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Karadva, Gujarat, India"))
-                        ?dateproviderT.onlyTime:"" ,
-                    checkOut: "",
-                    date: currentDay.toString(),
-                    attendanceTime: dateproviderF.checkTimeIn(),
-                    reason: "",
-                    attendanceStatus:  ((empProvider.empAddress !=
-                        "police station, Surat, Gujarat, India"))? "Absent":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Karadva, Gujarat, India"))?"Present":"Absent",
-                  );
-                  if(empProvider.empAddress=="police station, Surat, Gujarat, India" || empProvider.empAddress=="Uma plaza Star Circle, Karadva, Gujarat, India")
-                  {
-                    empProvider.updateCheckIn(dateproviderT.onlyTime!);
-                  }
+                        log("time================================${dateproviderT.onlyTime}");
+                        dateproviderF.checkTimeIn();
+                        empProvider.setCheckInStatus(true, currentDay);
+                        CollectionOfAttendanceModel employee =
+                            CollectionOfAttendanceModel(
+                          attendenceCheckouTime: "",
+                          isCheckIn: empProvider.isCheckedIn,
+                          isCheckOut: empProvider.isCheckedOut,
+                          email: empProvider.user!.email!,
+                          checkIn: ((empProvider.empAddress !=
+                                  "police station, Surat, Gujarat, India"))
+                              ? ""
+                              : ((empProvider.empAddress !=
+                                      "Uma plaza Star Circle, Karadva, Gujarat, India"))
+                                  ? dateproviderT.onlyTime
+                                  : "",
+                          checkOut: "",
+                          date: currentDay.toString(),
+                          attendanceTime: dateproviderF.checkTimeIn(),
+                          reason: "",
+                          attendanceStatus: ((empProvider.empAddress !=
+                                  "police station, Surat, Gujarat, India"))
+                              ? "Absent"
+                              : ((empProvider.empAddress !=
+                                      "Uma plaza Star Circle, Karadva, Gujarat, India"))
+                                  ? "Present"
+                                  : "Absent",
+                        );
+                        if (empProvider.empAddress ==
+                                "police station, Surat, Gujarat, India" ||
+                            empProvider.empAddress ==
+                                "Uma plaza Star Circle, Karadva, Gujarat, India") {
+                          empProvider.updateCheckIn(dateproviderT.onlyTime!);
+                        }
 
-                  await CollectionOfAttendance.collectionAttendance
-                      .addCollectionEmployee(
-                    employee,
-                    currentDay.toString(),
-                  );
+                        await CollectionOfAttendance.collectionAttendance
+                            .addCollectionEmployee(
+                          employee,
+                          currentDay.toString(),
+                        );
 
-                  empProvider.setCheckInStatus(true,currentDay);
-                  Navigator.of(context).pushNamed('/location');
-                },
+                        empProvider.setCheckInStatus(true, currentDay);
+                        Navigator.of(context).pushNamed('/location');
+                      },
                 child: buildButton(
                   Icons.thumb_up,
                   'Check In',
@@ -98,48 +106,57 @@ class CheckInOutScreen extends StatelessWidget {
                 ),
               ),
               CupertinoButton(
-                onPressed:(!empProvider.isCheckedIn || isNextDayCheckOut)
+                onPressed: (empProvider.isCheckedOut || isNextDayCheckOut)
                     ? null
                     : () async {
-                  dateproviderF.checkTimeOut();
-                  empProvider.setCheckOutStatus(true);
+                        dateproviderF.checkTimeOut();
+                        empProvider.setCheckOutStatus(true);
 
-                  CollectionOfAttendanceModel employee =
-                  CollectionOfAttendanceModel(
-                    attendenceCheckouTime:dateproviderF.checkTimeOut(),
-                    isCheckOut: empProvider.isCheckedOut,
-                    isCheckIn:empProvider.isCheckedIn,
-                    email: empProvider.user!.email!,
-                    checkOut:((empProvider.empAddress !=
-                        "police station, Surat, Gujarat, India"))? "":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Karadva, Gujarat, India"))
-                        ?dateproviderT.onlyTime:"" ,
-                    checkIn: "",
-                    date: DateTime.now().day.toString(),
-                    attendanceTime: '',
-                    reason: "",
-                    attendanceStatus: ((empProvider.empAddress !=
-                        "police station, Surat, Gujarat, India"))? "Absent":((empProvider.empAddress !=
-                        "Uma plaza Star Circle, Karadva, Gujarat, India"))?"Present":"Absent",
-                  );
-                  if(empProvider.empAddress=="police station, Surat, Gujarat, India" || empProvider.empAddress=="Uma plaza Star Circle, Karadva, Gujarat, India")
-                    {
-                      empProvider.updateCheckOut(dateproviderT.onlyTime!);
-                    }
-                  await CollectionOfAttendance.collectionAttendance
-                      .updateCollectionEmployee(
-                    employee,
-                    currentDay.toString(),
-                      dateproviderF.checkTimeOut()
-                  );
+                        CollectionOfAttendanceModel employee =
+                            CollectionOfAttendanceModel(
+                          attendenceCheckouTime: dateproviderF.checkTimeOut(),
+                          isCheckOut: empProvider.isCheckedOut,
+                          isCheckIn: empProvider.isCheckedIn,
+                          email: empProvider.user!.email!,
+                          checkOut: ((empProvider.empAddress !=
+                                  "police station, Surat, Gujarat, India"))
+                              ? ""
+                              : ((empProvider.empAddress !=
+                                      "Uma plaza Star Circle, Karadva, Gujarat, India"))
+                                  ? dateproviderT.onlyTime
+                                  : "",
+                          checkIn: "",
+                          date: DateTime.now().day.toString(),
+                          attendanceTime: '',
+                          reason: "",
+                          attendanceStatus: ((empProvider.empAddress !=
+                                  "police station, Surat, Gujarat, India"))
+                              ? "Absent"
+                              : ((empProvider.empAddress !=
+                                      "Uma plaza Star Circle, Karadva, Gujarat, India"))
+                                  ? "Present"
+                                  : "Absent",
+                        );
+                        if (empProvider.empAddress ==
+                                "police station, Surat, Gujarat, India" ||
+                            empProvider.empAddress ==
+                                "Uma plaza Star Circle, Karadva, Gujarat, India") {
+                          empProvider.updateCheckOut(dateproviderT.onlyTime!);
+                        }
+                        await CollectionOfAttendance.collectionAttendance
+                            .updateCollectionEmployee(
+                                employee,
+                                currentDay.toString(),
+                                dateproviderF.checkTimeOut());
 
-
-                  Navigator.of(context).pushReplacementNamed('/location');
-                },
+                        Navigator.of(context).pushNamed('/location');
+                      },
                 child: buildButton(
                   Icons.thumb_down,
                   'Check Out',
-                  (!empProvider.isCheckedIn || !isNextDayCheckOut) ? Colors.grey : Colors.black54,
+                  (!empProvider.isCheckedIn || !isNextDayCheckOut)
+                      ? Colors.grey
+                      : Colors.black54,
                   Colors.white,
                 ),
               ),
@@ -180,4 +197,3 @@ class CheckInOutScreen extends StatelessWidget {
     );
   }
 }
-
