@@ -110,25 +110,21 @@ class CollectionOfAttendance {
         .snapshots();
   }
 
-  Future<List<CollectionOfAttendanceModel>> fetchEmployeeAttendanceRecords(String email, List<String> days) async {
+  Future<List<CollectionOfAttendanceModel>> fetchEmployeeAttendanceRecords(
+      String email, List<String> days) async {
     List<CollectionOfAttendanceModel> attendanceRecords = [];
 
     for (String day in days) {
-      DocumentSnapshot snapshot = await _fireStore
-          .collection("employee")
-          .doc("attendance")
-          .collection(day)
-          .doc(email)
-          .get();
+      DocumentSnapshot snapshot = await _fireStore.collection("employee").doc("attendance").collection(day).doc(email).get();
 
       if (snapshot.exists) {
-        attendanceRecords.add(CollectionOfAttendanceModel.fromMap(snapshot.data() as Map<String, dynamic>));
+        attendanceRecords.add(CollectionOfAttendanceModel.fromMap(
+            snapshot.data() as Map<String, dynamic>));
       }
     }
 
     return attendanceRecords;
   }
-
 
   Stream<QuerySnapshot<Map<String, dynamic>>> progressDataFromFiresbase({
     required String start,
@@ -164,8 +160,13 @@ class CollectionOfAttendance {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> oneDayEmployeeAttendance(
       {required String day}) {
-    return _fireStore.collection("employee").doc("attendance").collection(day).snapshots();
+    return _fireStore
+        .collection("employee")
+        .doc("attendance")
+        .collection(day)
+        .snapshots();
   }
+
   /// todo : details list method
   void addDetails(AddDetails add, String date) {
     _fireStore
@@ -183,7 +184,6 @@ class CollectionOfAttendance {
         .collection(add.date)
         .doc(add.email)
         .update(AddDetails.toMap(add));
-
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> allEmployeeData(

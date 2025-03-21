@@ -1,3 +1,4 @@
+
 import 'package:emp_management/controller/auth_controller.dart';
 import 'package:emp_management/controller/time_controller.dart';
 import 'package:emp_management/utils/routes.dart';
@@ -9,11 +10,14 @@ import 'package:provider/provider.dart';
 import 'controller/emp_Controller.dart';
 import 'firebase_options.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+
   runApp(const MyApp());
 }
 
@@ -30,6 +34,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => AuthController(),),
           ChangeNotifierProvider(create: (context) => EmpController(),),
+
           ChangeNotifierProvider(create: (context) => DateTimeProvider(),),
         ],
         child: MaterialApp(

@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
             setState(() {
               time = timer.tick;
               Navigator.of(context).pushReplacementNamed('/choose');
-              log('${CollectionOfAttendance.collectionAttendance.fetchAttendanceData(context.read<EmpController>().user!.email!)}');
+
             });
           }
         });

@@ -35,5 +35,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   '/lateComers':(context)=> LateComersScreen(),
   '/earlyLeave':(context)=> EarlyLeaversScreen(),
   '/employeeList':(context)=> EmployeeListScreen(),
-  '/calander':(context)=> AttendanceLogScreen(),
+
 };

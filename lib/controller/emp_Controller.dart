@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../modal/attendence_model.dart';
 import '../modal/collection_of_attendance.dart';
@@ -17,8 +19,11 @@ class EmpController extends ChangeNotifier {
   double? empLatitude, empLongitude;
   var total=0;
   String? emp_Reason;
+  int? lastStoredCheckInDate;
 
   int selectedIndex=0;
+  String selectedFilter = "Last 14 days"; // Default dropdown value
+  List<String> days = [];
   final User? user = AuthServices.authServices.currentUser();
 
   /// todo : list of one day emp data
@@ -31,6 +36,63 @@ class EmpController extends ChangeNotifier {
   TextEditingController otherReasonController = TextEditingController();
   bool isOtherSelected = false;
 
+  void generateDateRange() {
+    DateTime today = DateTime.now();
+    days.clear();
+
+    switch (selectedFilter) {
+      case "Last 7 days":
+        for (int i = 0; i < 7; i++) {
+          days.add(DateFormat('yyyy-MM-dd').format(today.subtract(Duration(days: i))));
+        }
+        break;
+
+      case "Last 14 days":
+        for (int i = 0; i < 14; i++) {
+          days.add(DateFormat('yyyy-MM-dd').format(today.subtract(Duration(days: i))));
+        }
+        break;
+
+      case "Last 30 days":
+        for (int i = 0; i < 30; i++) {
+          days.add(DateFormat('yyyy-MM-dd').format(today.subtract(Duration(days: i))));
+        }
+        break;
+
+      case "This month":
+        DateTime firstDay = DateTime(today.year, today.month, 1);
+        for (int i = 0; i <= today.difference(firstDay).inDays; i++) {
+          days.add(DateFormat('yyyy-MM-dd').format(firstDay.add(Duration(days: i))));
+        }
+        break;
+
+      case "Last month":
+        DateTime firstDay = DateTime(today.year, today.month - 1, 1);
+        DateTime lastDay = DateTime(today.year, today.month, 0);
+        for (int i = 0; i <= lastDay.difference(firstDay).inDays; i++) {
+          days.add(DateFormat('yyyy-MM-dd').format(firstDay.add(Duration(days: i))));
+        }
+        break;
+    }
+    notifyListeners();
+
+    fetchAllAttendanceRecord(); // Fetch attendance records
+  }
+
+
+  Future<void> initializeCheckInStatus() async {
+    for (var employee in oneDateEmpList) {
+      lastCheckInDate=int.parse(employee.date!);
+    }
+    notifyListeners();
+  }
+
+
+  void changeSelectedIndex(var value)
+  {
+    selectedFilter=value;
+    notifyListeners();
+  }
 
   void totalWorkTime() {
     if (empCheckIn != null && empCheckOut != null) {
@@ -58,6 +120,7 @@ class EmpController extends ChangeNotifier {
     notifyListeners();
   }
 
+
   void setCheckInStatus(bool status,int currentDate) {
     isCheckedIn = status;
 
@@ -83,8 +146,7 @@ class EmpController extends ChangeNotifier {
       empAddress =
           await _getAddressFromCoordinates(empLatitude!, empLongitude!);
       log("===================$empAddress");
-      (isCheckedIn && !isCheckedOut)? CollectionOfAttendance.collectionAttendance.updateAddress(empAddress!, user!.email!, lastCheckInDate.toString(),empCheckIn! ):CollectionOfAttendance.collectionAttendance.updateAddressCheckout(empAddress!, user!.email!, lastCheckInDate.toString(),empCheckOut! );
-      notifyListeners();
+           notifyListeners();
     } catch (e) {
       print("Error: $e");
     }
@@ -92,9 +154,7 @@ class EmpController extends ChangeNotifier {
 
   Future<List<CollectionOfAttendanceModel>> fetchAllAttendanceRecord()
   async {
-
-    List<String> days = ["2025-03-01", "2025-03-02", "2025-03-03"]; // List of days for which attendance is stored
-    List<CollectionOfAttendanceModel> records = await CollectionOfAttendance.collectionAttendance.fetchEmployeeAttendanceRecords("employee@example.com", days);
+    List<CollectionOfAttendanceModel> records = await CollectionOfAttendance.collectionAttendance.fetchEmployeeAttendanceRecords(user!.email!, days);
     return records;
   }
 

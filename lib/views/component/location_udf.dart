@@ -36,7 +36,6 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
     });
   }
 
-
   void _checkAndShowDialog() {
     DateTime now = DateTime.now();
     DateTime nineThirtyAM =
@@ -174,12 +173,6 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
               ),
             ),
 
-            /// Late Arrival Alert Dialog
-            // ElevatedButton(
-            //   onPressed: _showLateDialog, // Manually trigger the dialog
-            //   child: const Text('Save'),
-            // ),
-
             SizedBox(height: 20.h),
             Spacer(),
 
@@ -196,7 +189,25 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          await Provider.of<EmpController>(context, listen: false).getCurrentLocation();
+                          await Provider.of<EmpController>(context,
+                                  listen: false)
+                              .getCurrentLocation();
+                          (empProviderTrue.isCheckedIn &&
+                                  !empProviderTrue.isCheckedOut)
+                              ? CollectionOfAttendance.collectionAttendance
+                                  .updateAddress(
+                                      empProviderTrue.empAddress!,
+                                      empProviderTrue.user!.email!,
+                                      empProviderTrue.lastCheckInDate
+                                          .toString(),
+                                      empProviderTrue.empCheckIn!)
+                              : CollectionOfAttendance.collectionAttendance
+                                  .updateAddressCheckout(
+                                      empProviderTrue.empAddress!,
+                                      empProviderTrue.user!.email!,
+                                      empProviderTrue.lastCheckInDate
+                                          .toString(),
+                                      empProviderTrue.empCheckOut!);
                         },
                         child: Text(
                           "Try Again!",
@@ -286,9 +297,10 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                               ),
                               SizedBox(height: 5.h),
                               Text(
-                                context.watch<EmpController>().empCheckOut ==null
+                                context.watch<EmpController>().empCheckOut ==
+                                        null
                                     ? "--:--"
-                                    :'${ empProviderTrue.total} Hrs',
+                                    : '${empProviderTrue.total} Hrs',
                                 style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
                                     fontSize: 16.sp,
@@ -311,7 +323,9 @@ class _OfficeLocationScreenState extends State<OfficeLocationScreen> {
                         children: [
                           TextButton(
                             onPressed: () async {
-                              await Provider.of<EmpController>(context, listen: false).getCurrentLocation();
+                              await Provider.of<EmpController>(context,
+                                      listen: false)
+                                  .getCurrentLocation();
                             },
                             child: Text(
                               "Try Again!",
