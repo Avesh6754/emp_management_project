@@ -190,6 +190,7 @@ class EmpController extends ChangeNotifier {
   }
 
   /// Convert latitude and longitude to an address
+
   Future<String> _getAddressFromCoordinates(double lat, double lon) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
